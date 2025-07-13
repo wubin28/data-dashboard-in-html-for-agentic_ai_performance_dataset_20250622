@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agentic AI Performance Dashboard</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/papaparse@5.3.0/papaparse.min.js"></script>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background-color: #f8f9fa;
+            color: #212529;
+            margin: 0;
+            padding: 1rem;
+        }
+        .dashboard-container {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+            max-width: 1200px;
+            margin: auto;
+        }
+        @media (min-width: 992px) {
+            .dashboard-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        .chart-card {
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 1.5rem;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 2rem;
+            grid-column: 1 / -1; /* Span full width */
+        }
+        h1 {
+            color: #343a40;
+            margin-bottom: 0.5rem;
+        }
+        h2 {
+            color: #495057;
+            border-bottom: 2px solid #dee2e6;
+            padding-bottom: 0.5rem;
+            margin-top: 0;
+        }
+        #record-count {
+            color: #6c757d;
+            font-size: 1.1rem;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="dashboard-container">
+        <div class="header">
+            <h1>Agentic AI Performance Dashboard</h1>
+            <p id="record-count">Loading data...</p>
+        </div>
+
+        <div class="chart-card">
+            <h2>Multimodal Processing Capability</h2>
+            <canvas id="multimodalChart"></canvas>
+        </div>
+
+        <div class="chart-card">
+            <h2>Deployment Environment Distribution</h2>
+            <canvas id="deploymentChart"></canvas>
+        </div>
+
+        <div class="chart-card" style="grid-column: 1 / -1;">
+            <h2>Bias Detection Score Distribution</h2>
+            <canvas id="biasChart"></canvas>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const dataPath = './datasets/agentic_ai_performance_dataset_20250622.csv';
+
+            Papa.parse(dataPath, {
+                download: true,
+                header: true,
+                skipEmptyLines: true,
+                complete: function(results) {
+                    const data = results.data;
+                    document.getElementById('record-count').innerText = `Total Records Processed: ${data.length}`;
+                    
+                    renderMultimodalChart(data);
+                    renderDeploymentChart(data);
+                    renderBiasChart(data);
+                },
+                error: function(err, file) {
+                    console.error("Error parsing CSV:", err);
+                    document.getElementById('record-count').innerText = 'Error loading or parsing data file.';
+                }
+            });
+
+            function renderMultimodalChart(data) {
+                const multimodalData = data.reduce((acc, row) => {
+                    const capability = row.multimodal_capability === 'True' ? 'Enabled' : 'Disabled';
+                    acc[capability] = (acc[capability] || 0) + 1;
+                    return acc;
+                }, {});
+
+                new Chart(document.getElementById('multimodalChart'), {
+                    type: 'pie',
+                    data: {
+                        labels: Object.keys(multimodalData),
+                        datasets: [{
+                            data: Object.values(multimodalData),
+                            backgroundColor: ['#4CAF50', '#F44336'],
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        plugins: {
+                            legend: { position: 'top' },
+                            title: { display: true, text: 'Proportion of Agents with Multimodal Capability' }
+                        }
+                    }
+                });
+            }
+
+            function renderDeploymentChart(data) {
+                const deploymentData = data.reduce((acc, row) => {
+                    const env = row.deployment_environment;
+                    if (env) {
+                        acc[env] = (acc[env] || 0) + 1;
+                    }
+                    return acc;
+                }, {});
+
+                new Chart(document.getElementById('deploymentChart'), {
+                    type: 'bar',
+                    data: {
+                        labels: Object.keys(deploymentData),
+                        datasets: [{
+                            label: 'Number of Agents',
+                            data: Object.values(deploymentData),
+                            backgroundColor: '#36A2EB',
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        indexAxis: 'y',
+                        plugins: {
+                            legend: { display: false },
+                            title: { display: true, text: 'Agent Deployment Environments' }
+                        }
+                    }
+                });
+            }
+
+            function renderBiasChart(data) {
+                const biasScores = data.map(row => parseFloat(row.bias_detection_score)).filter(score => !isNaN(score));
+                const bins = [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0];
+                const histogram = new Array(bins.length - 1).fill(0);
+
+                biasScores.forEach(score => {
+                    for (let i = 0; i < bins.length - 1; i++) {
+                        if (score >= bins[i] && score < bins[i+1]) {
+                            histogram[i]++;
+                            break;
+                        }
+                    }
+                     if (score === 1.0) { // include scores that are exactly 1.0
+                        histogram[histogram.length-1]++;
+                    }
+                });
+
+                const labels = bins.slice(0, -1).map((bin, i) => `${bin.toFixed(1)}-${bins[i+1].toFixed(1)}`);
+
+                new Chart(document.getElementById('biasChart'), {
+                    type: 'bar',
+                    data: {
+                        labels: labels,
+                        datasets: [{
+                            label: 'Number of Agents',
+                            data: histogram,
+                            backgroundColor: '#FFCE56',
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        plugins: {
+                            legend: { display: false },
+                            title: { display: true, text: 'Distribution of Bias Detection Scores' }
+                        },
+                        scales: {
+                            x: { title: { display: true, text: 'Score Range' } },
+                            y: { title: { display: true, text: 'Count' } }
+                        }
+                    }
+                });
+            }
+        });
+    </script>
+
+</body>
+</html>
