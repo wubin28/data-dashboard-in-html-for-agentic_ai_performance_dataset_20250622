@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <title>AGentic AI Performance Dashboard</title>
+    <style>
+        .container { width: 100%; max-width: 600px; margin: 0 auto; padding: 20px; font-family: Arial, sans-serif; color: #333; line-height: 1.6em; }
+        .section { margin-bottom: 30px; }
+        h2 { color: #2c5f9; }
+        .chart { width: 100%; height: 300px; margin: 0; padding: 0; }
+        .metric-card { background: #f8f9ff; padding: 15px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        .footer { text-align: center; margin-top: 20px; color: #666; }
+        .key { font-weight: bold; color: #2c5f9; }
+        .value { font-size: 1.2em; color: #0066cc; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>AGentic AI Performance Overview</h2>
+        <div class="section">
+            <h3>1. 多模态处理能力</h3>
+            <div class="metric-card">
+                <div class="key">任务类型分布</div>
+                <div class="value">文本处理: 89.2% (GPT-4o, Claude-3.5)</div>
+                <div class="value">图像生成: 78.5% (Falcon-180B)</div>
+                <div class="value">代码生成: 72.1% (Mixtral-8x7B)</div>
+            </div>
+            <div class="chart" id="multimodal-chart"></div>
+        </div>
+        <h3>2. 边缘设备部署</h3>
+            <div class="metric-card">
+                <div class="key">边缘延迟</div>
+                <div class="value">平均延迟: 142ms (LLaMA-3, Mobile)</div>
+                <div class="value">资源利用率: 89.1% (Mixtral-8x7B, Edge)</div>
+                <div class="value">任务完成率: 93.4% (GPT-4o, Cloud)</div>
+            </div>
+            <div class="chart" id="edge-chart"></div>
+        </div>
+        <h3>3. 偏见检测</h3>
+            <div class="metric-card">
+                <div class="key">性别偏差</div>
+                <div class="value">男性误差率: 11.3% (GPT-4o vs 8.7% Claude-3.5)</div>
+                <div class="key">种族偏差指数</div>
+                <div class="value">0.15 (混合模型表现稳定)</div>
+            </div>
+            <div class="chart" id="bias-chart"></div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.com/Chart.js"></script>
+    <script>
+        // 多模态处理能力图表
+        let multimodalData = [
+            { label: '文本处理', value: 89.2, model: 'GPT-4o', category: 'NLP' },
+            { label: '图像生成', value: 78.5, model: 'Falcon-180B', category: 'Creative Writing' },
+            { label: '代码生成', value: 72.1, model: 'Mixtral-8x7B', category: 'Code Generation' }
+        ];
+        let ctx = document.getElementById('multimodal-chart').getContext('canvas');
+        new Chart(ctx, {
+            type: 'bar',
+            data: { labels: multimodalData.map(d => d.labelX),
+            datasets: [{
+                label: '准确率',
+                data: multimodalData.map(d => ({ 
+                    return { 
+                        x: d.labelX, 
+                        y: d.value, 
+                        backgroundColor: getCategory(d.model === 'GPT-4o' ? '#2c5f9' : 
+                            d.model === 'Falcon-180B' ? '#0066cc' : '#4CAF50' 
+                        })
+                    })
+                })), 
+                tension: 0.2
+            }],
+            options: { 
+                plugins: [{
+                    beforeDraw: (chartInstance) => {
+                        ctx.fillStyle = '#f8f9ff';
+                        ctx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+                    }
+                }]
+            }
+        });
+        // 边缘设备部署图表
+        let edgeData = [
+            { label: '延迟', value: 142, model: 'LLaMA-3', device: 'Mobile' },
+            { label: '利用率', value: 89.1, model: 'Mixtral-8x7B', device: 'Edge' },
+            { label: '完成率', value: 93.4, model: 'GPT-4o', device: 'Cloud' }
+        ];
+        let edgeCtx = document.getElementById('edge-chart').getContext('canvas');
+        new Chart(edgeCtx, {
+            type: 'bar',
+            data: { labels: edgeData.map(d => d.labelX),
+            datasets: [{
+                label: '指标值',
+                data: edgeData.map(d => ({
+                    return { 
+                        x: d.labelX, 
+                        y: d.value, 
+                        backgroundColor: d.device === 'Mobile' ? '#2c5f9' : 
+                            d.device === 'Edge' ? '#4CAF50' : '#0066cc'
+                    })
+                })),
+            options: { 
+                plugins: [{
+                    beforeDraw: (chartInstance) => {
+                        ctx.fillStyle = '#f8f9ff';
+                        ctx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+                    }
+                }]
+            });
+        // 偏见检测图表
+        let biasData = [
+            { label: '性别偏差', value: 11.3, model: 'GPT-4o', group: 'Male' },
+            { label: '种族偏差', value: 8.7, model: 'Claude-3.5', group: 'Female' },
+            { label: '指数', value: 0.15, model: '混合模型', group: 'Overall' }
+        ];
+        let biasCtx = document.getElementById('bias-chart').getContext('canvas');
+        new Chart(biasCtx, {
+            type: 'boxplot',
+            data: { 
+                labels: biasData.map(d => d.labelX),
+                datasets: [{
+                    label: '偏差值',
+                    data: biasData.map(d => ({ 
+                        return { 
+                            x: d.labelX, 
+                            y: d.value, 
+                            group: d.group
+                        });
+                })),
+            options: {
+                plugins: [{
+                    beforeDraw: (chartInstance) => {
+                        ctx.fillStyle = '#f8f9ff';
+                        ctx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+                    }
+                }]
+            });
+    </script>
+    <div class="footer">
+        <div class="metric">总记录数: 12,345</div>
+        <div class="metric">数据更新时间: 2025-01-26</div>
+    </div>
+</body>
+</html>
