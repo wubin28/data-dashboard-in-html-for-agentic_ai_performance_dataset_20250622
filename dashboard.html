@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agentic AI Performance Dashboard</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #f8f9fa;
+            color: #212529;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 1200px;
+            margin: auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        .header {
+            grid-column: 1 / -1;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        h1 {
+            color: #343a40;
+        }
+        .chart-container {
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            padding: 20px;
+        }
+        .summary {
+            grid-column: 1 / -1;
+            background-color: #e9ecef;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            font-size: 1.2em;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="header">
+            <h1>Agentic AI Performance Analysis</h1>
+        </div>
+
+        <div class="summary">
+            Total Records Processed: 5000
+        </div>
+
+        <div class="chart-container">
+            <canvas id="multimodalChart"></canvas>
+        </div>
+        <div class="chart-container">
+            <canvas id="edgeChart"></canvas>
+        </div>
+        <div class="chart-container" style="grid-column: 1 / -1;">
+            <canvas id="biasChart"></canvas>
+        </div>
+    </div>
+
+    <script>
+        const multimodalData = {
+            labels: ['Supports Multimodality', 'No Multimodality'],
+            datasets: [{
+                data: [740, 4260],
+                backgroundColor: ['#4CAF50', '#E91E63'],
+            }]
+        };
+
+        const edgeData = {
+            labels: ['Edge Compatible', 'Not Edge Compatible'],
+            datasets: [{
+                data: [2693, 2307],
+                backgroundColor: ['#008CBA', '#FF9800'],
+            }]
+        };
+        
+        const biasData = {
+            labels: ['0.0-0.1', '0.1-0.2', '0.2-0.3', '0.3-0.4', '0.4-0.5', '0.5-0.6', '0.6-0.7', '0.7-0.8', '0.8-0.9', '0.9-1.0'],
+            datasets: [{
+                label: 'Number of Agents',
+                data: [0, 0, 0, 0, 0, 0, 1462, 1387, 1428, 723],
+                backgroundColor: '#2196F3',
+                borderColor: '#1769aa',
+                borderWidth: 1
+            }]
+        };
+
+        window.onload = function() {
+            const multimodalCtx = document.getElementById('multimodalChart').getContext('2d');
+            new Chart(multimodalCtx, {
+                type: 'pie',
+                data: multimodalData,
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: { position: 'top' },
+                        title: {
+                            display: true,
+                            text: 'Multimodal Capability'
+                        }
+                    }
+                }
+            });
+
+            const edgeCtx = document.getElementById('edgeChart').getContext('2d');
+            new Chart(edgeCtx, {
+                type: 'pie',
+                data: edgeData,
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: { position: 'top' },
+                        title: {
+                            display: true,
+                            text: 'Edge Device Compatibility'
+                        }
+                    }
+                }
+            });
+
+            const biasCtx = document.getElementById('biasChart').getContext('2d');
+            new Chart(biasCtx, {
+                type: 'bar',
+                data: biasData,
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: { display: false },
+                        title: {
+                            display: true,
+                            text: 'Bias Detection Score Distribution'
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+        };
+    </script>
+</body>
+</html> 
