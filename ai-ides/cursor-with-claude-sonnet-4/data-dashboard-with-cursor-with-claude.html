@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agentic AI Performance Dataset 2025 - 数据看板</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .header h1 {
+            color: #2c3e50;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            color: #7f8c8d;
+            font-size: 1.2em;
+        }
+
+        .data-summary {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .summary-card {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .summary-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .summary-card h3 {
+            color: #3498db;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .summary-card p {
+            color: #7f8c8d;
+            font-size: 1.1em;
+        }
+
+        .charts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 25px;
+        }
+
+        .chart-container {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .chart-container h3 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+            text-align: center;
+            font-size: 1.3em;
+        }
+
+        .chart-wrapper {
+            position: relative;
+            height: 300px;
+        }
+
+        .radar-chart {
+            height: 350px;
+        }
+
+        .key-insights {
+            margin-top: 30px;
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .key-insights h2 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+        }
+
+        .insights-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .insight-item {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 4px solid #3498db;
+        }
+
+        .insight-item h4 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+
+        .insight-item p {
+            color: #5a6c7d;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+            
+            .header h1 {
+                font-size: 2em;
+            }
+            
+            .charts-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .chart-wrapper {
+                height: 250px;
+            }
+            
+            .radar-chart {
+                height: 280px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🤖 Agentic AI Performance Dataset 2025</h1>
+            <p>综合数据看板 - 聚焦多模态处理、边缘部署与偏见检测</p>
+            <p><strong>实际处理数据行数：5,000 条</strong></p>
+        </div>
+
+        <div class="data-summary">
+            <div class="summary-card">
+                <h3>49.07%</h3>
+                <p>平均成功率</p>
+            </div>
+            <div class="summary-card">
+                <h3>57.34%</h3>
+                <p>平均准确度</p>
+            </div>
+            <div class="summary-card">
+                <h3>58.89%</h3>
+                <p>平均效率</p>
+            </div>
+            <div class="summary-card">
+                <h3>77.44%</h3>
+                <p>平均偏见检测得分</p>
+            </div>
+        </div>
+
+        <div class="charts-grid">
+            <div class="chart-container">
+                <h3>🎭 多模态处理能力分布</h3>
+                <div class="chart-wrapper">
+                    <canvas id="multimodalChart"></canvas>
+                </div>
+            </div>
+
+            <div class="chart-container">
+                <h3>📱 边缘设备兼容性</h3>
+                <div class="chart-wrapper">
+                    <canvas id="edgeChart"></canvas>
+                </div>
+            </div>
+
+            <div class="chart-container">
+                <h3>⚖️ 偏见检测得分分布</h3>
+                <div class="chart-wrapper">
+                    <canvas id="biasChart"></canvas>
+                </div>
+            </div>
+
+            <div class="chart-container">
+                <h3>🌐 部署环境分布</h3>
+                <div class="chart-wrapper">
+                    <canvas id="deploymentChart"></canvas>
+                </div>
+            </div>
+
+            <div class="chart-container">
+                <h3>🤖 智能体类型分布</h3>
+                <div class="chart-wrapper">
+                    <canvas id="agentTypeChart"></canvas>
+                </div>
+            </div>
+
+            <div class="chart-container">
+                <h3>📊 综合性能雷达图</h3>
+                <div class="chart-wrapper radar-chart">
+                    <canvas id="performanceRadar"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <div class="key-insights">
+            <h2>🔍 关键洞察</h2>
+            <div class="insights-grid">
+                <div class="insight-item">
+                    <h4>多模态处理能力</h4>
+                    <p>仅有14.8%的智能体具备多模态处理能力，显示这一技术仍处于发展阶段，有巨大的提升空间。</p>
+                </div>
+                <div class="insight-item">
+                    <h4>边缘设备部署</h4>
+                    <p>53.9%的智能体支持边缘设备部署，表明边缘计算在AI应用中的重要性日益增长。</p>
+                </div>
+                <div class="insight-item">
+                    <h4>偏见检测表现</h4>
+                    <p>所有智能体的偏见检测得分都在0.6以上，平均达到77.44%，显示在公平性方面有良好表现。</p>
+                </div>
+                <div class="insight-item">
+                    <h4>部署环境均衡</h4>
+                    <p>各种部署环境（服务器、混合、边缘、桌面、云端、移动）的分布相对均匀，体现了AI应用的多样化场景。</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 图表配置
+        Chart.defaults.font.family = "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif";
+        Chart.defaults.color = '#5a6c7d';
+
+        // 多模态处理能力饼图
+        const multimodalCtx = document.getElementById('multimodalChart').getContext('2d');
+        new Chart(multimodalCtx, {
+            type: 'doughnut',
+            data: {
+                labels: ['不具备多模态能力', '具备多模态能力'],
+                datasets: [{
+                    data: [4260, 740],
+                    backgroundColor: ['#e8f4f8', '#3498db'],
+                    borderWidth: 2,
+                    borderColor: '#fff'
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'bottom'
+                    }
+                }
+            }
+        });
+
+        // 边缘设备兼容性饼图
+        const edgeCtx = document.getElementById('edgeChart').getContext('2d');
+        new Chart(edgeCtx, {
+            type: 'doughnut',
+            data: {
+                labels: ['不兼容边缘设备', '兼容边缘设备'],
+                datasets: [{
+                    data: [2307, 2693],
+                    backgroundColor: ['#fdf2e8', '#e67e22'],
+                    borderWidth: 2,
+                    borderColor: '#fff'
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'bottom'
+                    }
+                }
+            }
+        });
+
+        // 偏见检测得分分布柱状图
+        const biasCtx = document.getElementById('biasChart').getContext('2d');
+        new Chart(biasCtx, {
+            type: 'bar',
+            data: {
+                labels: ['0.6-0.8', '0.8-1.0'],
+                datasets: [{
+                    label: '智能体数量',
+                    data: [2849, 2151],
+                    backgroundColor: ['#a8e6cf', '#2ecc71'],
+                    borderWidth: 1,
+                    borderColor: '#fff'
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        display: false
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+
+        // 部署环境分布柱状图
+        const deploymentCtx = document.getElementById('deploymentChart').getContext('2d');
+        new Chart(deploymentCtx, {
+            type: 'bar',
+            data: {
+                labels: ['服务器', '混合', '边缘', '桌面', '云端', '移动'],
+                datasets: [{
+                    label: '智能体数量',
+                    data: [835, 818, 836, 789, 840, 882],
+                    backgroundColor: ['#d5a6bd', '#c8b2db', '#bb9fdc', '#ae8bdd', '#a078de', '#9364df'],
+                    borderWidth: 1,
+                    borderColor: '#fff'
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        display: false
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+
+        // 智能体类型分布柱状图
+        const agentTypeCtx = document.getElementById('agentTypeChart').getContext('2d');
+        new Chart(agentTypeCtx, {
+            type: 'bar',
+            data: {
+                labels: ['项目经理', '营销助手', 'QA测试', '代码助手', '邮件管理', '销售助手', '客服', '文档处理', '翻译代理', 'HR招聘', '内容创作', '任务规划', '数据分析', '财务顾问', '社媒管理', '研究助手'],
+                datasets: [{
+                    label: '智能体数量',
+                    data: [332, 322, 296, 280, 320, 313, 340, 317, 292, 318, 308, 314, 299, 313, 315, 321],
+                    backgroundColor: '#74b9ff',
+                    borderWidth: 1,
+                    borderColor: '#fff'
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        display: false
+                    }
+                },
+                scales: {
+                    x: {
+                        ticks: {
+                            maxRotation: 45,
+                            minRotation: 45
+                        }
+                    },
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+
+        // 综合性能雷达图
+        const performanceCtx = document.getElementById('performanceRadar').getContext('2d');
+        new Chart(performanceCtx, {
+            type: 'radar',
+            data: {
+                labels: ['成功率', '准确度', '效率', '偏见检测', '多模态能力', '边缘兼容性'],
+                datasets: [{
+                    label: '平均表现',
+                    data: [49.07, 57.34, 58.89, 77.44, 14.8, 53.9],
+                    backgroundColor: 'rgba(52, 152, 219, 0.2)',
+                    borderColor: '#3498db',
+                    borderWidth: 2,
+                    pointBackgroundColor: '#3498db',
+                    pointBorderColor: '#fff',
+                    pointBorderWidth: 2
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    r: {
+                        beginAtZero: true,
+                        max: 100,
+                        ticks: {
+                            stepSize: 20
+                        }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        position: 'bottom'
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html> 
