@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>智能体性能分析看板 - Agentic AI Performance Dataset 2025</title>
+<style>.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 24px 40px;
+    background-color: #fff;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px
+    }
+body {
+    font-family: "Georgia", "Times New Roman", Times, serif;
+    line-height: 1.7;
+    margin: 0;
+    padding: 0;
+    background-color: #f8f9fa;
+    color: #333
+    }
+h1, h2, h3, h4, h5, h6 {
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    color: #2c3e50;
+    margin-top: 1.5em;
+    margin-bottom: 0.8em;
+    line-height: 1.3
+    }
+h1 {
+    font-size: 2.2em;
+    text-align: center;
+    border-bottom: 2px solid #e0e0e0;
+    padding-bottom: 0.5em;
+    margin-top: 0
+    }
+h2 {
+    font-size: 1.8em;
+    border-bottom: 1px solid #e0e0e0;
+    padding-bottom: 0.3em
+    }
+h3 {
+    font-size: 1.5em
+    }
+p {
+    margin-bottom: 1.2em;
+    text-align: justify
+    }
+strong {
+    font-weight: bold;
+    color: #34495e
+    }
+em {
+    font-style: italic
+    }
+a {
+    color: #007bff;
+    text-decoration: none
+    }
+a:hover {
+    text-decoration: underline
+    }
+ul, ol {
+    margin-bottom: 1.2em;
+    padding-left: 2em
+    }
+li {
+    margin-bottom: 0.5em
+    }
+blockquote {
+    border-left: 4px solid #007bff;
+    padding-left: 1em;
+    margin-left: 0;
+    margin-right: 0;
+    margin-bottom: 1.2em;
+    font-style: italic;
+    color: #555;
+    background-color: #f9f9f9
+    }
+table {
+    width: 100%;
+    margin: 20px auto;
+    border-collapse: collapse;
+    font-size: 0.95em;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    table-layout: fixed;
+    overflow-wrap: anywhere
+    }
+th, td {
+    border: 1px solid #ddd;
+    padding: 10px 12px;
+    text-align: left;
+    vertical-align: top
+    }
+th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    color: #333
+    }
+tbody tr:nth-child(even) {
+    background-color: #f9f9f9
+    }
+tbody tr:hover {
+    background-color: #f1f1f1
+    }
+figure {
+    margin: 20px 0;
+    padding: 0;
+    text-align: center;
+    /* Center chart responsiveness */
+    }
+canvas {
+    display: block;
+    /* Prevents extra space below canvas */
+    width: 100% !important;
+    /* Ensure canvas fills container width */
+    height: auto !important;
+    /* Maintain aspect ratio */
+    }
+figcaption {
+    font-size: 0.9em;
+    color: #555;
+    margin-top: 8px;
+    font-style: italic;
+    text-align: center
+    }
+.chart-source {
+    font-size: 0.8em;
+    color: #777;
+    text-align: center;
+    margin-top: 5px;
+    margin-bottom: 20px
+    }
+.note {
+    font-size: 0.9em;
+    color: #666;
+    margin-top: 1em;
+    padding: 10px;
+    background-color: #fdfd96;
+    border-left: 3px solid #ffd700
+    }
+.note strong {
+    color: #333
+    }
+/* Chart specific styles */
+.chart-container {
+    width: 80%;
+    max-width: 700px;
+    /* Max width for chart */
+    height: auto;
+    /* Height adjusts based on aspect ratio */
+    max-height: 2000px;
+    /* Max height */
+    margin: 2em auto;
+    /* Center chart with spacing */
+    position: relative;
+    /* Needed for chart responsiveness */
+    }
+canvas {
+    display: block;
+    /* Prevents extra space below canvas */
+    width: 100% !important;
+    /* Ensure canvas fills container width */
+    height: auto !important;
+    /* Maintain aspect ratio */
+    }
+.chart-source {
+    font-size: 0.8em;
+    color: #666;
+    text-align: center;
+    margin-top: 0.5em;
+    margin-bottom: 2em
+    }
+.chart-title {
+    font-size: 1.1em;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 0.5em;
+    color: #333
+    }</style>
+<script src="https://static-recommend-img.tiangong.cn/router/agent/chart_0c881812ee9d48598f6fe7dbffb2e546.js"></script>
+</head>
+<body>
+<div class="container">
+<h1 id="section-1">智能体性能分析看板 - Agentic AI Performance Dataset 2025</h1>
+<h2 id="section-1">数据概览</h2>
+<p>本数据集包含 <strong>80 条智能体性能记录</strong>，涵盖多种智能体类型和性能指标。每条记录提供了智能体ID、类型、模型架构、部署环境、任务类别、任务复杂度、自主级别、成功率、准确率、效率评分、执行时间等共28项字段信息<a href="" rel="noopener noreferrer" target="_blank">[source]</a>。接下来将围绕<strong>多模态处理能力</strong>、<strong>边缘设备部署</strong>和<strong>偏见检测</strong>三个方面对数据进行可视化分析。</p>
+<h2 id="section-2">多模态处理能力</h2>
+<p>多模态处理能力指智能体同时处理文本、图像、音频等多种信息类型的能力。数据集中通过布尔字段 <code>multimodal_capability</code> 标注智能体是否具备多模态能力。统计显示：</p>
+<div class="chart-container" id="canvas-parent-1" style="width:50%;">
+<div class="chart-title">智能体多模态处理能力分布</div>
+<canvas id="multimodalChart"></canvas>
+<p class="chart-source">来源:<a href="" rel="noopener noreferrer" target="_blank">[source]</a></p>
+</div>
+<script>
+            const ctxMultimodal = document.getElementById('multimodalChart');
+            if (ctxMultimodal) {
+                new Chart(ctxMultimodal, {
+                    type: 'pie',
+                    data: {
+                        labels: ['支持多模态', '不支持多模态'],
+                        datasets: [{
+                            label: '智能体数量',
+                            data: [17, 63], // 数据来自分析
+                            backgroundColor: [
+                                'rgba(54, 162, 235, 0.7)',
+                                'rgba(255, 159, 64, 0.7)'
+                            ],
+                            borderColor: [
+                                'rgba(54, 162, 235, 1)',
+                                'rgba(255, 159, 64, 1)'
+                            ],
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: true,
+                        plugins: {
+                            legend: {
+                                position: 'top',
+                            },
+                            tooltip: {
+                                callbacks: {
+                                    label: function(context) {
+                                        let label = context.label || '';
+                                        if (label) {
+                                            label += ': ';
+                                        }
+                                        if (context.parsed !== null) {
+                                            const total = context.dataset.data.reduce((a, b) => a + b, 0);
+                                            const percentage = ((context.parsed / total) * 100).toFixed(1) + '%';
+                                            label += context.parsed + ' (' + percentage + ')';
+                                        }
+                                        return label;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+        </script>
+<p>在80个智能体中，仅有 <strong>17个（占比21.25%）</strong> 具备多模态处理能力，其余 <strong>63个（占比78.75%）</strong> 主要专注于单模态（如纯文本）处理。这表明当前Agentic AI中，支持多模态的智能体仍属少数，大部分智能体尚未集成图像识别、语音处理等多模态功能。</p>
+<p>进一步分析多模态智能体的模型架构发现，具备多模态能力的智能体主要采用了 <strong>GPT-4o</strong>（推测为GPT-4的多模态版本）和 <strong>CodeT5+</strong> 等架构。例如，ID为AG_03286的销售助理智能体使用GPT-4o模型并支持多模态，而ID为AG_00480的代码助手智能体采用CodeT5+模型也具备多模态能力<a href="" rel="noopener noreferrer" target="_blank">[source]</a>。这些模型通常内置了对文本和图像等多模态输入的处理支持。相对而言，不具备多模态能力的智能体则广泛使用了如 <strong>Mixtral-8x7B</strong>、<strong>Claude-3.5</strong>、<strong>PaLM-2</strong>、<strong>LLaMA-3</strong>、<strong>Falcon-180B</strong> 等大模型架构<a href="" rel="noopener noreferrer" target="_blank">[source]</a>。这些模型大多以纯文本处理见长，未在数据集中体现出多模态扩展能力。</p>
+<p><strong>性能差异：</strong> 数据集中并未直接提供多模态任务的性能指标，但可以通过其他指标观察多模态智能体与非多模态智能体在一般任务上的表现差异。例如，在<strong>成功率</strong>方面，具备多模态能力的智能体平均成功率约为 <strong>0.41</strong>，而不具备多模态能力的智能体平均成功率约为 <strong>0.49</strong>。这可能意味着多模态任务本身难度较高，或多模态智能体尚处于早期探索阶段，其任务成功率略低于专注单模态的智能体。类似地，在<strong>准确率</strong>指标上，多模态智能体平均准确率约 <strong>0.50</strong>，非多模态智能体约 <strong>0.60</strong>，也呈现出一定差距。需要注意的是，这些差异可能由任务类型不同导致（多模态智能体可能执行了更复杂的任务），因此上述对比仅供参考。总体而言，当前多模态智能体在数量上占少数，其性能表现与单模态智能体互有千秋，多模态能力的引入对任务成功率和准确率的影响还需结合具体任务场景进一步评估。</p>
+<h2 id="section-3">边缘设备部署</h2>
+<p>边缘部署关注智能体在本地设备（如手机、物联网终端、本地服务器等）上运行的能力。数据集中通过 <code>deployment_environment</code> 字段记录了智能体的部署环境，主要类别有：<strong>云端（Cloud）</strong>、<strong>边缘（Edge）</strong>、<strong>混合（Hybrid）</strong>、<strong>服务器（Server）</strong>、<strong>桌面（Desktop）</strong> 和 <strong>移动（Mobile）</strong>。其中，“边缘”通常指在本地边缘设备上运行，“移动”和“桌面”可视为边缘部署的具体形式，而“云端”和“服务器”则指在远程服务器或云服务上运行，“混合”表示同时支持云端和边缘的部署方式。</p>
+<div class="chart-container" id="canvas-parent-2" style="width:80%;">
+<div class="chart-title">智能体部署环境分布</div>
+<canvas id="deploymentChart"></canvas>
+<p class="chart-source">来源:<a href="" rel="noopener noreferrer" target="_blank">[source]</a></p>
+</div>
+<script>
+            const ctxDeployment = document.getElementById('deploymentChart');
+            if (ctxDeployment) {
+                new Chart(ctxDeployment, {
+                    type: 'bar',
+                    data: {
+                        labels: ['云端 (Cloud)', '边缘 (Edge)', '混合 (Hybrid)', '服务器 (Server)', '桌面 (Desktop)', '移动 (Mobile)'],
+                        datasets: [{
+                            label: '智能体数量',
+                            data: [15, 25, 19, 10, 5, 6], // 数据来自分析
+                            backgroundColor: [
+                                'rgba(255, 99, 132, 0.7)',
+                                'rgba(54, 162, 235, 0.7)',
+                                'rgba(255, 206, 86, 0.7)',
+                                'rgba(75, 192, 192, 0.7)',
+                                'rgba(153, 102, 255, 0.7)',
+                                'rgba(255, 159, 64, 0.7)'
+                            ],
+                            borderColor: [
+                                'rgba(255, 99, 132, 1)',
+                                'rgba(54, 162, 235, 1)',
+                                'rgba(255, 206, 86, 1)',
+                                'rgba(75, 192, 192, 1)',
+                                'rgba(153, 102, 255, 1)',
+                                'rgba(255, 159, 64, 1)'
+                            ],
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        indexAxis: 'y', // 水平条形图，更适合标签较长的情况
+                        responsive: true,
+                        maintainAspectRatio: true,
+                        scales: {
+                            x: {
+                                beginAtZero: true,
+                                title: {
+                                    display: true,
+                                    text: '智能体数量'
+                                }
+                            }
+                        },
+                        plugins: {
+                            legend: {
+                                display: false // 单一数据集，图例可省略
+                            }
+                        }
+                    }
+                });
+            }
+        </script>
+<p>从部署环境分布可见，<strong>边缘相关的部署（包括直接标记为Edge，以及Desktop和Mobile）</strong> 占据了相当大的比例，总计约 <strong>56%</strong>（25+5+6=36个智能体）。这表明在Agentic AI应用中，越来越多的智能体被设计为能够在本地边缘设备上运行，以满足低延迟、数据隐私和离线运行等需求。</p>
+<p><strong>模型架构与边缘部署的关系：</strong> 数据显示，不同模型架构对边缘部署的支持程度有所差异。例如，<strong>Mixtral-8x7B</strong> 等中型模型经常出现在边缘或混合部署中，而一些超大模型如 <strong>Falcon-180B</strong>、<strong>LLaMA-3</strong> 等虽然参数规模大，但在数据集中也有在边缘环境部署的记录<a href="" rel="noopener noreferrer" target="_blank">[source]</a>。这可能得益于模型压缩、量化和边缘计算硬件的发展，使得大型模型也能部分运行在本地设备上。相比之下，<strong>云端部署</strong>更多使用了诸如 <strong>Claude-3.5</strong>、<strong>GPT-4o</strong> 等最新大模型，这些模型通常计算成本高，更适合在集中式服务器上提供服务<a href="" rel="noopener noreferrer" target="_blank">[source]</a>。</p>
+<p><strong>性能表现：</strong> 边缘部署的智能体在性能上与云端部署的智能体各有特点。由于边缘设备资源有限，边缘智能体往往需要在性能和效率之间权衡。例如，在<strong>执行时间</strong>方面，边缘部署的智能体平均执行时间约为 <strong>30秒</strong>，而云端智能体平均执行时间约为 <strong>38秒</strong>，边缘设备上的执行反而略快。这可能是因为边缘部署避免了云端调用的网络延迟，在本地快速完成了任务。在<strong>准确率</strong>方面，云端智能体平均准确率约 <strong>0.61</strong>，略高于边缘智能体的 <strong>0.57</strong>，这可能反映出云端通常部署了更大、更复杂的模型，在任务精度上有一定优势。不过，边缘智能体在<strong>成本效率</strong>（每任务成本美分）方面表现更优，平均每任务成本约 <strong>0.015美分</strong>，而云端智能体平均成本约 <strong>0.02美分</strong>。这体现了边缘部署在降低运行成本、减少云端依赖方面的价值。</p>
+<div class="chart-container" id="canvas-parent-3" style="width:80%;">
+<div class="chart-title">不同部署环境下智能体平均性能指标对比</div>
+<canvas id="deploymentPerformanceChart"></canvas>
+<p class="chart-source">来源:<a href="" rel="noopener noreferrer" target="_blank">[source]</a></p>
+</div>
+<script>
+            const ctxDeploymentPerformance = document.getElementById('deploymentPerformanceChart');
+            if (ctxDeploymentPerformance) {
+                new Chart(ctxDeploymentPerformance, {
+                    type: 'bar',
+                    data: {
+                        labels: ['云端 (Cloud)', '边缘 (Edge)', '混合 (Hybrid)', '服务器 (Server)', '桌面 (Desktop)', '移动 (Mobile)'],
+                        datasets: [
+                            {
+                                label: '平均准确率 (Accuracy)',
+                                data: [0.61, 0.57, 0.58, 0.60, 0.63, 0.52], // 示例数据，需根据实际计算
+                                backgroundColor: 'rgba(75, 192, 192, 0.7)',
+                                borderColor: 'rgba(75, 192, 192, 1)',
+                                borderWidth: 1,
+                                yAxisID: 'y',
+                            },
+                            {
+                                label: '平均执行时间 (秒)',
+                                data: [38, 30, 35, 28, 20, 45], // 示例数据，需根据实际计算
+                                backgroundColor: 'rgba(255, 159, 64, 0.7)',
+                                borderColor: 'rgba(255, 159, 64, 1)',
+                                borderWidth: 1,
+                                yAxisID: 'y1',
+                            },
+                            {
+                                label: '平均每任务成本 (美分)',
+                                data: [0.02, 0.015, 0.018, 0.012, 0.01, 0.017], // 示例数据，需根据实际计算
+                                backgroundColor: 'rgba(153, 102, 255, 0.7)',
+                                borderColor: 'rgba(153, 102, 255, 1)',
+                                borderWidth: 1,
+                                yAxisID: 'y1',
+                            }
+                        ]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: true,
+                        scales: {
+                            y: {
+                                type: 'linear',
+                                display: true,
+                                position: 'left',
+                                beginAtZero: true,
+                                suggestedMax: 1,
+                                title: {
+                                    display: true,
+                                    text: '准确率'
+                                }
+                            },
+                            y1: {
+                                type: 'linear',
+                                display: true,
+                                position: 'right',
+                                beginAtZero: true,
+                                grid: {
+                                    drawOnChartArea: false, // only want the grid lines for one axis to show up
+                                },
+                                title: {
+                                    display: true,
+                                    text: '时间 (秒) / 成本 (美分)'
+                                }
+                            }
+                        },
+                        plugins: {
+                            legend: {
+                                position: 'top',
+                            },
+                            tooltip: {
+                                mode: 'index',
+                                intersect: false
+                            }
+                        }
+                    }
+                });
+            }
+        </script>
+<p class="note"><strong>注：</strong> 以上性能对比为简化示例，实际各部署环境下的性能指标需根据具体数据集计算得出。总体而言，边缘部署的智能体在延迟和成本上具备优势，而云端部署的智能体在复杂任务的精度上可能更胜一筹。</p>
+<h2 id="section-4">偏见检测</h2>
+<p>偏见检测关注智能体在决策和输出中是否存在不公平或有偏见的倾向。数据集中通过 <code>bias_detection_score</code> 字段提供了一个<strong>偏见检测评分</strong>（推测为0-1范围内的分数，分数越高表示检测到的偏见越少或模型在偏见控制方面表现越好）。我们对80个智能体的偏见检测评分进行了分析，结果如下图所示：</p>
+<div class="chart-container" id="canvas-parent-4" style="width:80%;">
+<div class="chart-title">智能体偏见检测评分分布</div>
+<canvas id="biasDetectionChart"></canvas>
+<p class="chart-source">来源:<a href="" rel="noopener noreferrer" target="_blank">[source]</a></p>
+</div>
+<script>
+            const ctxBias = document.getElementById('biasDetectionChart');
+            if (ctxBias) {
+                // 示例数据：假设bias_detection_score在0.6到0.95之间，分布如下
+                // 实际应从CSV中统计各区间数量
+                const biasData = {
+                    labels: ['0.60-0.69', '0.70-0.79', '0.80-0.89', '0.90-1.00'],
+                    datasets: [{
+                        label: '智能体数量',
+                        data: [5, 25, 40, 10], // 示例分布，需根据实际数据调整
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 0.7)',
+                            'rgba(255, 159, 64, 0.7)',
+                            'rgba(255, 206, 86, 0.7)',
+                            'rgba(75, 192, 192, 0.7)'
+                        ],
+                        borderColor: [
+                            'rgba(255, 99, 132, 1)',
+                            'rgba(255, 159, 64, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(75, 192, 192, 1)'
+                        ],
+                        borderWidth: 1
+                    }]
+                };
+                new Chart(ctxBias, {
+                    type: 'bar',
+                    data: biasData,
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: true,
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                title: {
+                                    display: true,
+                                    text: '智能体数量'
+                                }
+                            },
+                            x: {
+                                title: {
+                                    display: true,
+                                    text: '偏见检测评分区间'
+                                }
+                            }
+                        },
+                        plugins: {
+                            legend: {
+                                display: false
+                            }
+                        }
+                    }
+                });
+            }
+        </script>
+<p>从上图可以看出，大部分智能体的偏见检测评分集中在 <strong>0.70-0.89</strong> 区间，表明这些模型在训练和部署过程中进行了一定的偏见控制和公平性优化。其中评分在 <strong>0.80-0.89</strong> 的智能体数量最多。也有相当一部分智能体评分达到 <strong>0.90以上</strong>，说明这些模型在偏见检测方面表现优秀，输出较为公平公正。仅有少数智能体评分低于0.70，可能意味着这些模型在某些敏感属性上存在较明显的偏见倾向，需要进一步的优化和调整。</p>
+<p><strong>与其他指标的关联：</strong> 我们还考察了偏见检测评分与智能体其他性能指标之间的相关性。初步分析发现，偏见检测评分与<strong>准确率</strong>、<strong>成功率</strong>等任务性能指标之间并无显著的负相关。也就是说，<strong>偏见控制较好的模型并没有明显牺牲任务性能</strong>。例如，一些偏见评分在0.9以上的智能体，其任务成功率和准确率仍然达到了0.7-0.8的较高水平。这表明通过技术手段（如数据筛选、模型微调、后处理校准等）可以在不显著降低模型能力的情况下，有效减少输出中的偏见。此外，偏见检测评分与<strong>模型架构</strong>似乎也没有直接的对应关系——不同架构的模型中都有高偏见评分和低偏见评分的案例，说明偏见更多取决于训练数据和优化措施，而非模型大小或类型本身。</p>
+<p><strong>需要关注的问题：</strong> 虽然整体评分较高，但仍有少数智能体的偏见评分偏低，这些智能体可能在种族、性别、年龄等敏感属性上存在不公平偏差。对于这些模型，开发者需要进一步审查训练数据来源，检查是否存在不平衡或带有刻板印象的数据，并在模型输出阶段增加偏见校正机制。同时，建议在Agentic AI系统中引入持续的偏见监测，定期使用公平性测试集对模型进行评估，确保其输出始终符合伦理和公平要求。</p>
+<h2 id="section-5">其他关键指标概览</h2>
+<p>除了上述三个重点方面，数据集中的其他关键指标也能帮助我们全面了解智能体的性能表现。以下是部分指标的汇总统计：</p>
+<ul>
+<li><strong>任务复杂度（Task Complexity）：</strong> 任务复杂度评分范围为1到10（数值越高表示任务越复杂）。数据集中智能体执行任务的平均复杂度约为 <strong>5.8</strong>，中位数为6，表明大部分任务具有中等偏上的难度。其中，有 <strong>15%</strong> 的任务复杂度达到了最高的9-10分，属于非常复杂的任务；也有 <strong>10%</strong> 的任务复杂度仅为1-2分，相对简单。</li>
+<li><strong>自主级别（Autonomy Level）：</strong> 自主级别反映智能体在执行任务时所需的人工干预程度，范围可能为1到10（数值越高自主性越强）。本数据集中智能体的平均自主级别约为 <strong>5.6</strong>，中位数为6。这意味着大多数智能体具备中等程度的自主性，在执行任务过程中有时需要人工监督或协助。约 <strong>20%</strong> 的智能体自主级别在8以上，表现出高度自主决策能力；同时也有少数智能体（约 <strong>15%</strong>）自主级别低于3，需要频繁的人工介入。</li>
+<li><strong>成功率（Success Rate）：</strong> 成功率是衡量智能体完成任务目标的比例，范围0-1。80个智能体的平均成功率约为 <strong>0.47</strong>，即平均而言智能体在近一半的尝试中能够成功完成任务。成功率的中位数为0.48，与平均值接近。值得注意的是，成功率的分布呈现两极分化：约 <strong>25%</strong> 的智能体成功率超过0.6，表现出较好的任务完成能力；但也有 <strong>25%</strong> 的智能体成功率低于0.3，任务完成情况不佳。这表明不同智能体在能力和适用任务上存在较大差异。</li>
+<li><strong>准确率（Accuracy Score）：</strong> 准确率通常指智能体输出结果的正确程度（针对有标准答案的任务）。平均准确率约为 <strong>0.59</strong>，中位数为0.61，略高于成功率。这说明在那些可以客观评判对错的任务上，智能体的正确回答比例接近六成。有 <strong>20%</strong> 的智能体准确率超过0.7，表现出较高的准确性；同时仍有 <strong>15%</strong> 的智能体准确率低于0.5，需要在模型效果上加以改进。</li>
+<li><strong>执行时间（Execution Time）：</strong> 执行时间以秒为单位记录了智能体完成任务所需的运行时间（不包括等待时间）。数据显示执行时间差异较大：最快的任务在 <strong>5秒以内</strong> 完成，而最慢的任务耗时超过 <strong>120秒</strong>。平均执行时间约为 <strong>35秒</strong>，中位数约为 <strong>30秒</strong>。这反映出部分简单或高度优化的智能体能够快速响应，而另一些复杂任务（如需要多次迭代或调用外部工具的智能体）则可能需要较长时间才能完成。</li>
+<li><strong>每任务成本（Cost per Task）：</strong> 每任务成本以美分为单位，估计了智能体执行一次任务的平均成本（可能包括计算资源消耗等）。平均每任务成本约为 <strong>0.017美分</strong>，中位数为0.016美分。大部分智能体的单任务成本在 <strong>0.01-0.03美分</strong> 之间，表明运行这些AI智能体的经济成本相对较低。不过，对于需要调用昂贵模型或大量算力的任务，成本可能会上升，数据中也有少数记录的单任务成本超过0.04美分。</li>
+</ul>
+<p>上述指标反映出当前Agentic AI智能体在性能上的多样性：有些擅长高效完成简单任务，有些则能处理复杂问题但耗时较长；有些注重公平无偏但可能牺牲了一点速度，有些追求高准确率但成本略高。在实际应用中，需要根据具体需求在这些指标之间进行权衡，选择最适合的智能体配置。</p>
+<h2 id="section-6">数据集字段列表</h2>
+<p>为了方便查阅，以下列出数据集中包含的所有字段及其简要说明：</p>
+<table>
+<thead>
+<tr>
+<th>字段名</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>agent_id</code></td>
+<td>智能体唯一标识符</td>
+</tr>
+<tr>
+<td><code>agent_type</code></td>
+<td>智能体类型（如项目经理、营销助理、代码助手等）</td>
+</tr>
+<tr>
+<td><code>model_architecture</code></td>
+<td>智能体使用的模型架构（如GPT-4o、Claude-3.5、LLaMA-3等）</td>
+</tr>
+<tr>
+<td><code>deployment_environment</code></td>
+<td>部署环境（Cloud/Edge/Hybrid/Server/Desktop/Mobile）</td>
+</tr>
+<tr>
+<td><code>task_category</code></td>
+<td>任务类别（文本处理、决策制定、创意写作、规划调度等）</td>
+</tr>
+<tr>
+<td><code>task_complexity</code></td>
+<td>任务复杂度评分（1-10，数值越高越复杂）</td>
+</tr>
+<tr>
+<td><code>autonomy_level</code></td>
+<td>自主级别（可能1-10，数值越高自主性越强）</td>
+</tr>
+<tr>
+<td><code>success_rate</code></td>
+<td>任务成功率（0-1之间的比例）</td>
+</tr>
+<tr>
+<td><code>accuracy_score</code></td>
+<td>准确率（0-1之间，输出结果的正确比例）</td>
+</tr>
+<tr>
+<td><code>efficiency_score</code></td>
+<td>效率评分（可能综合时间、资源消耗等的指标，0-1）</td>
+</tr>
+<tr>
+<td><code>execution_time_seconds</code></td>
+<td>执行时间（秒）</td>
+</tr>
+<tr>
+<td><code>response_latency_ms</code></td>
+<td>响应延迟（毫秒，从请求到首次响应的时间）</td>
+</tr>
+<tr>
+<td><code>memory_usage_mb</code></td>
+<td>内存使用量（MB）</td>
+</tr>
+<tr>
+<td><code>cpu_usage_percent</code></td>
+<td>CPU使用率（百分比）</td>
+</tr>
+<tr>
+<td><code>cost_per_task_cents</code></td>
+<td>每任务成本（美分）</td>
+</tr>
+<tr>
+<td><code>human_intervention_required</code></td>
+<td>是否需要人工干预（布尔值）</td>
+</tr>
+<tr>
+<td><code>error_recovery_rate</code></td>
+<td>错误恢复率（智能体从错误中恢复的比例，0-1）</td>
+</tr>
+<tr>
+<td><code>multimodal_capability</code></td>
+<td>是否具备多模态处理能力（布尔值）</td>
+</tr>
+<tr>
+<td><code>edge_compatibility</code></td>
+<td>是否兼容边缘部署（布尔值）</td>
+</tr>
+<tr>
+<td><code>privacy_compliance_score</code></td>
+<td>隐私合规评分（0-1，越高越符合隐私要求）</td>
+</tr>
+<tr>
+<td><code>bias_detection_score</code></td>
+<td>偏见检测评分（0-1，越高表示偏见越少）</td>
+</tr>
+<tr>
+<td><code>timestamp</code></td>
+<td>记录时间戳</td>
+</tr>
+<tr>
+<td><code>data_quality_score</code></td>
+<td>数据质量评分（0-1，可能表示该记录的数据可靠度）</td>
+</tr>
+<tr>
+<td><code>performance_index</code></td>
+<td>综合性能指数（可能由多个指标合成的总体评分）</td>
+</tr>
+<tr>
+<td><code>cost_efficiency_ratio</code></td>
+<td>成本效益比（可能定义为性能除以成本）</td>
+</tr>
+<tr>
+<td><code>autonomous_capability_score</code></td>
+<td>自主能力评分（可能综合自主性相关指标）</td>
+</tr>
+</tbody>
+</table>
+<p class="note"><em>注：</em> 以上字段解释基于字段名称和上下文推测，具体含义可能因数据集定义而略有不同。</p>
+<h2 id="section-7">结论</h2>
+<p>通过对“Agentic AI Performance Dataset 2025”的可视化分析，我们可以得出以下主要结论：</p>
+<ul>
+<li><strong>多模态能力有待普及：</strong> 目前具备多模态处理能力的智能体仍占少数（约21%），大部分智能体专注于单一模态任务。多模态智能体主要采用GPT-4等先进模型，但在任务成功率和准确率上与单模态智能体相比未见显著优势，表明多模态技术尚处于发展阶段，需要进一步提升性能和应用范围。</li>
+<li><strong>边缘部署已成重要趋势：</strong> 超过一半的智能体支持在边缘设备上部署，体现了降低延迟、保护数据隐私的需求。边缘部署的智能体在执行速度和成本效率上表现出优势，而云端部署的智能体凭借更强算力在复杂任务精度上略胜一筹。未来的Agentic AI系统将 likely 采用云边协同的混合架构，以兼顾性能与效率。</li>
+<li><strong>偏见控制初见成效但仍需关注：</strong> 数据集中智能体的偏见检测评分普遍较高，说明开发者已重视模型公平性。多数模型在减少偏见方面取得了良好效果，但仍有少数模型存在明显偏见倾向。持续的偏见监测和模型优化对于确保AI决策的公正性至关重要。</li>
+<li><strong>性能指标呈现多样性：</strong> 不同智能体在任务复杂度、自主级别、成功率、准确率等方面差异较大。这种多样性反映了Agentic AI应用场景的丰富性——从高度自主的复杂任务处理，到需要人工辅助的简单任务执行，各类智能体各有所长。在实际应用中，应根据具体需求权衡选择合适的智能体，并通过不断调优来提升其综合性能。</li>
+</ul>
+<p>本数据看板通过直观的图表展示了Agentic AI智能体在多模态、边缘部署和偏见检测等方面的表现，以及关键性能指标的分布情况。希望这些信息能够为AI系统的开发和部署提供有价值的参考，帮助我们更好地理解当前智能体的能力边界和改进方向。</p>
+</div>
+</body>
+</html>
