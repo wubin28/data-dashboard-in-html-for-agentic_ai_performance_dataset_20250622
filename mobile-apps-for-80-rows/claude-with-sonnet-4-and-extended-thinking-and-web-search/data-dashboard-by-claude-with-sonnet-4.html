@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agentic AI Performance Dashboard 2025</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            color: #2c3e50;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .header h1 {
+            color: #34495e;
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            color: #7f8c8d;
+            font-size: 1.1rem;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #3498db;
+            margin-bottom: 10px;
+        }
+
+        .stat-label {
+            color: #7f8c8d;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .chart-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+
+        .chart-container {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .chart-title {
+            font-size: 1.4rem;
+            color: #34495e;
+            margin-bottom: 20px;
+            text-align: center;
+            border-bottom: 2px solid #ecf0f1;
+            padding-bottom: 10px;
+        }
+
+        .chart-wrapper {
+            position: relative;
+            height: 300px;
+        }
+
+        .insights {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+        }
+
+        .insights h3 {
+            color: #34495e;
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+        }
+
+        .insight-item {
+            background: #f8f9fa;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 10px;
+            border-left: 4px solid #3498db;
+        }
+
+        .data-summary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+            
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .chart-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .chart-wrapper {
+                height: 280px;
+            }
+            
+            .stat-number {
+                font-size: 2rem;
+            }
+            
+            .chart-container {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1>🤖 Agentic AI Performance Dashboard 2025</h1>
+            <p>智能体性能分析 - 多模态处理、边缘部署与偏见检测</p>
+        </div>
+
+        <!-- Data Summary -->
+        <div class="data-summary">
+            <h3>📊 数据集概览</h3>
+            <p><strong>实际处理数据行数：80条记录</strong></p>
+            <p>涵盖15种智能体类型 | 10种模型架构 | 6种部署环境</p>
+        </div>
+
+        <!-- Key Stats -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-number">15%</div>
+                <div class="stat-label">多模态支持率</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">58.8%</div>
+                <div class="stat-label">边缘设备兼容率</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">76.7</div>
+                <div class="stat-label">平均偏见检测分数</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">49.4%</div>
+                <div class="stat-label">平均成功率</div>
+            </div>
+        </div>
+
+        <!-- Charts -->
+        <div class="chart-grid">
+            <!-- 多模态处理能力分布 -->
+            <div class="chart-container">
+                <div class="chart-title">🎯 多模态处理能力分布</div>
+                <div class="chart-wrapper">
+                    <canvas id="multimodalChart"></canvas>
+                </div>
+            </div>
+
+            <!-- 边缘设备兼容性分布 -->
+            <div class="chart-container">
+                <div class="chart-title">📱 边缘设备兼容性分布</div>
+                <div class="chart-wrapper">
+                    <canvas id="edgeChart"></canvas>
+                </div>
+            </div>
+
+            <!-- 部署环境分布 -->
+            <div class="chart-container">
+                <div class="chart-title">🌐 部署环境分布</div>
+                <div class="chart-wrapper">
+                    <canvas id="deploymentChart"></canvas>
+                </div>
+            </div>
+
+            <!-- 智能体类型分布 -->
+            <div class="chart-container">
+                <div class="chart-title">👥 智能体类型分布</div>
+                <div class="chart-wrapper">
+                    <canvas id="agentTypeChart"></canvas>
+                </div>
+            </div>
+
+            <!-- 模型架构分布 -->
+            <div class="chart-container">
+                <div class="chart-title">🏗️ 模型架构分布</div>
+                <div class="chart-wrapper">
+                    <canvas id="modelChart"></canvas>
+                </div>
+            </div>
+
+            <!-- 性能指标对比 -->
+            <div class="chart-container">
+                <div class="chart-title">📈 关键性能指标对比</div>
+                <div class="chart-wrapper">
+                    <canvas id="performanceChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- Key Insights -->
+        <div class="insights">
+            <h3>🔍 关键洞察</h3>
+            <div class="insight-item">
+                <strong>多模态处理现状：</strong>仅有15%的智能体支持多模态处理（12/80），表明多模态能力仍是稀缺技术，主要集中在高级AI系统中。
+            </div>
+            <div class="insight-item">
+                <strong>边缘部署趋势：</strong>58.8%的智能体支持边缘设备部署（47/80），显示边缘AI正成为主流，有利于实时响应和隐私保护。
+            </div>
+            <div class="insight-item">
+                <strong>偏见检测水平：</strong>平均偏见检测分数为0.767（满分1.0），整体表现良好，但仍有提升空间，尤其在公平性要求严格的应用场景。
+            </div>
+            <div class="insight-item">
+                <strong>性能表现：</strong>平均成功率49.4%，准确率57.8%，表明当前AI智能体在复杂任务上仍有改进空间。
+            </div>
+            <div class="insight-item">
+                <strong>技术栈多样性：</strong>覆盖10种主流模型架构，Transformer-XL和InstructGPT应用最广泛，反映了技术生态的丰富性。
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Chart.js默认配置
+        Chart.defaults.font.family = "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif";
+        Chart.defaults.color = '#2c3e50';
+
+        // 浅色调色板
+        const colors = {
+            primary: '#3498db',
+            secondary: '#e74c3c',
+            success: '#2ecc71',
+            warning: '#f39c12',
+            info: '#9b59b6',
+            light: '#ecf0f1',
+            pastel: ['#FFE5E5', '#E5F3FF', '#E5FFE5', '#FFF5E5', '#F0E5FF', '#FFE5F5', '#E5FFFF', '#FFFCE5', '#F5E5FF', '#E5FFF0']
+        };
+
+        // 1. 多模态处理能力分布
+        const multimodalCtx = document.getElementById('multimodalChart').getContext('2d');
+        new Chart(multimodalCtx, {
+            type: 'doughnut',
+            data: {
+                labels: ['不支持多模态', '支持多模态'],
+                datasets: [{
+                    data: [68, 12],
+                    backgroundColor: [colors.light, colors.primary],
+                    borderColor: ['#bdc3c7', colors.primary],
+                    borderWidth: 2
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: {
+                            padding: 20,
+                            usePointStyle: true
+                        }
+                    }
+                }
+            }
+        });
+
+        // 2. 边缘设备兼容性分布
+        const edgeCtx = document.getElementById('edgeChart').getContext('2d');
+        new Chart(edgeCtx, {
+            type: 'doughnut',
+            data: {
+                labels: ['不支持边缘部署', '支持边缘部署'],
+                datasets: [{
+                    data: [33, 47],
+                    backgroundColor: [colors.light, colors.success],
+                    borderColor: ['#bdc3c7', colors.success],
+                    borderWidth: 2
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: {
+                            padding: 20,
+                            usePointStyle: true
+                        }
+                    }
+                }
+            }
+        });
+
+        // 3. 部署环境分布
+        const deploymentCtx = document.getElementById('deploymentChart').getContext('2d');
+        new Chart(deploymentCtx, {
+            type: 'bar',
+            data: {
+                labels: ['Edge', 'Server', 'Desktop', 'Hybrid', 'Mobile', 'Cloud'],
+                datasets: [{
+                    label: '智能体数量',
+                    data: [23, 14, 14, 13, 13, 3],
+                    backgroundColor: colors.pastel,
+                    borderColor: colors.primary,
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        grid: {
+                            color: '#f8f9fa'
+                        }
+                    },
+                    x: {
+                        grid: {
+                            display: false
+                        }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        display: false
+                    }
+                }
+            }
+        });
+
+        // 4. 智能体类型分布（前8名）
+        const agentTypeCtx = document.getElementById('agentTypeChart').getContext('2d');
+        new Chart(agentTypeCtx, {
+            type: 'bar',
+            data: {
+                labels: ['Project Manager', 'Sales Assistant', 'Customer Service', 'Document Processor', 'Task Planner', 'Data Analyst', 'Social Media Manager', 'QA Tester'],
+                datasets: [{
+                    label: '数量',
+                    data: [10, 7, 6, 6, 6, 6, 6, 5],
+                    backgroundColor: colors.pastel,
+                    borderColor: colors.info,
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                indexAxis: 'y',
+                scales: {
+                    x: {
+                        beginAtZero: true,
+                        grid: {
+                            color: '#f8f9fa'
+                        }
+                    },
+                    y: {
+                        grid: {
+                            display: false
+                        }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        display: false
+                    }
+                }
+            }
+        });
+
+        // 5. 模型架构分布
+        const modelCtx = document.getElementById('modelChart').getContext('2d');
+        new Chart(modelCtx, {
+            type: 'bar',
+            data: {
+                labels: ['Transformer-XL', 'InstructGPT', 'Mixtral-8x7B', 'CodeT5+', 'GPT-4o', 'Claude-3.5', 'PaLM-2', 'LLaMA-3', 'Gemini-Pro', 'Falcon-180B'],
+                datasets: [{
+                    label: '使用数量',
+                    data: [10, 10, 9, 9, 8, 8, 7, 7, 6, 6],
+                    backgroundColor: colors.pastel,
+                    borderColor: colors.warning,
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        grid: {
+                            color: '#f8f9fa'
+                        }
+                    },
+                    x: {
+                        grid: {
+                            display: false
+                        },
+                        ticks: {
+                            maxRotation: 45
+                        }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        display: false
+                    }
+                }
+            }
+        });
+
+        // 6. 性能指标对比
+        const performanceCtx = document.getElementById('performanceChart').getContext('2d');
+        new Chart(performanceCtx, {
+            type: 'radar',
+            data: {
+                labels: ['成功率', '准确率', '效率分数', '偏见检测', '隐私合规', '数据质量'],
+                datasets: [{
+                    label: '平均表现 (%)',
+                    data: [49.4, 57.8, 58.2, 76.7, 84.6, 87.2],
+                    fill: true,
+                    backgroundColor: 'rgba(52, 152, 219, 0.2)',
+                    borderColor: colors.primary,
+                    pointBackgroundColor: colors.primary,
+                    pointBorderColor: '#fff',
+                    pointHoverBackgroundColor: '#fff',
+                    pointHoverBorderColor: colors.primary
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                elements: {
+                    line: {
+                        borderWidth: 3
+                    }
+                },
+                scales: {
+                    r: {
+                        angleLines: {
+                            display: true,
+                            color: '#ecf0f1'
+                        },
+                        suggestedMin: 0,
+                        suggestedMax: 100,
+                        grid: {
+                            color: '#ecf0f1'
+                        },
+                        pointLabels: {
+                            font: {
+                                size: 12
+                            }
+                        }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        position: 'bottom'
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
