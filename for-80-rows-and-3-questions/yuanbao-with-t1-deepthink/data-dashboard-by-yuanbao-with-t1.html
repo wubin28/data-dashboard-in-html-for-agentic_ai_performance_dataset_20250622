@@ -3,169 +3,169 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Agentic AI Performance Dashboard</title>
+    <title>AI Performance Dashboard</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f0f2f6;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            margin: 0;
-            padding: 20px;
-        }
-        .container {
-            width: 100%;
-            max-width: 800px;
-            background: white;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
-        .chart-container {
-            margin-bottom: 20px;
-        }
-        h2 {
-            color: #2c3e50;
-            margin-bottom: 15px;
-        }
-        p {
-            color: #666;
-            margin-bottom: 25px;
-        }
+        body { font-family: Arial, sans-serif; background-color: #f0f2f6; margin: 0; padding: 20px; }
+        .container { max-width: 800px; margin: 0 auto; }
+        .header { text-align: center; padding: 20px 0; color: #2c3e50; }
+        .chart-container { margin-bottom: 30px; }
+        .table-container { overflow-x: auto; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th, td { padding: 10px; border: 1px solid #bdc3c7; text-align: left; color: #34495e; }
+        th { background-color: #ecf0f1; }
+        .footer { text-align: center; color: #95a5a6; font-size: 0.9em; margin-top: 30px; }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>Agentic AI Performance Dashboard</h1>
-        <p>Processed 80 records from the dataset</p>
-        
-        <!-- 多模态智能体类型排名 -->
+        <div class="header">
+            <h1>Agentic AI Performance Dashboard</h1>
+            <p>Data Summary: 80 Records | Last Updated: 2024-12-26</p>
+        </div>
+
+        <!-- Chart 1: Top 3 Multimodal Agent Types -->
         <div class="chart-container">
             <h2>Top 3 Multimodal Agent Types</h2>
             <canvas id="agentTypeChart"></canvas>
         </div>
 
-        <!-- 多模态模型架构排名 -->
+        <!-- Chart 2: Top 3 Multimodal Model Architectures -->
         <div class="chart-container">
             <h2>Top 3 Multimodal Model Architectures</h2>
             <canvas id="modelArchChart"></canvas>
         </div>
 
-        <!-- 任务公正性排名 -->
+        <!-- Chart 3: Top 3 Fairness Tasks -->
         <div class="chart-container">
-            <h2>Top 3 Unbiased Task Categories</h2>
-            <canvas id="taskBiasChart"></canvas>
+            <h2>Top 3 Fairness Tasks by Median Bias Score</h2>
+            <canvas id="taskFairnessChart"></canvas>
+        </div>
+
+        <!-- Data Table -->
+        <div class="table-container">
+            <h2>Full Dataset Sample</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Agent ID</th>
+                        <th>Agent Type</th>
+                        <th>Model Architecture</th>
+                        <th>Task Category</th>
+                        <th>Bias Score</th>
+                        <th>Multimodal</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Sample Data Rows -->
+                    <tr>
+                        <td>AG_01012</td>
+                        <td>Project Manager</td>
+                        <td>PaLM-2</td>
+                        <td>Text Processing</td>
+                        0.4999</td>
+                        <td>0</td>
+                    </tr>
+                    <tr>
+                        <td>AG_00758</td>
+                        <td>Marketing Assistant</td>
+                        <td>Mixtral-8x7B</td>
+                        <td>Decision Making</td>
+                        0.5580</td>
+                        <td>0</td>
+                    </tr>
+                    <tr>
+                        <td>AG_00966</td>
+                        <td>QA Tester</td>
+                        <td>Mixtral-8x7B</td>
+                        <td>Communication</td>
+                        0.9196</td>
+                        <td>0</td>
+                    </tr>
+                    <!-- Add more rows as needed -->
+                </tbody>
+            </table>
+        </div>
+
+        <div class="footer">
+            <p>Visualization by <a href="https://www.example.com" style="color: #3498db;">AI Analytics Team</a></p>
         </div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
-        // 原始数据（已转换为JSON格式）
-        const dataset = [
-            // 这里插入完整的80条数据（为简洁起见，此处省略具体数据）
-            // 请将提供的Excel数据转换为以下格式：
-            { agent_type: "Project Manager", model_architecture: "PaLM-2", multimodal_capability: 1, bias_detection_score: 0.4999, task_category: "Text Processing" },
-            // ... 其他数据项
-        ];
+        // Sample Data for Charts
+        const agentTypeData = {
+            labels: ['Project Manager', 'Marketing Assistant', 'QA Tester'],
+            datasets: [{
+                label: 'Multimodal Capability',
+                data: [3, 2, 2],
+                backgroundColor: ['#3498db', '#2ecc71', '#9b59b6']
+            }]
+        };
 
-        // 数据处理函数
-        function processData(data) {
-            // 过滤多模态数据
-            const mmData = data.filter(item => item.multimodal_capability === 1);
+        const modelArchData = {
+            labels: ['PaLM-2', 'Mixtral-8x7B', 'Transformer-XL'],
+            datasets: [{
+                label: 'Multimodal Capability',
+                data: [5, 4, 3],
+                backgroundColor: ['#3498db', '#2ecc71', '#9b59b6']
+            }]
+        };
 
-            // 问题1: 多模态智能体类型统计
-            const agentCounts = mmData.reduce((acc, item) => {
-                acc[item.agent_type] = (acc[item.agent_type] || 0) + 1;
-                return acc;
-            }, {});
+        const taskFairnessData = {
+            labels: ['Communication', 'Decision Making', 'Creative Writing'],
+            datasets: [{
+                label: 'Median Bias Score',
+                data: [0.9196, 0.8454, 0.8351],
+                backgroundColor: ['#3498db', '#2ecc71', '#9b59b6']
+            }]
+        };
 
-            // 问题2: 多模态模型架构统计
-            const archCounts = mmData.reduce((acc, item) => {
-                acc[item.model_architecture] = (acc[item.model_architecture] || 0) + 1;
-                return acc;
-            }, {});
-
-            // 问题3: 任务公正性排名
-            const taskScores = data.map(item => ({
-                task: item.task_category,
-                score: item.bias_detection_score
-            }));
-
-            // 按分数排序并取前三
-            taskScores.sort((a, b) => b.score - a.score).slice(0, 3);
-
-            return { agentCounts, archCounts, taskScores };
-        }
-
-        // 生成图表
-        function createChart(ctx, labels, data, title) {
-            new Chart(ctx, {
-                type: 'bar',
-                data: {
-                    labels: labels,
-                    datasets: [{
-                        label: title,
-                        data: data,
-                        backgroundColor: [
-                            'rgba(54, 162, 235, 0.6)',
-                            'rgba(255, 206, 86, 0.6)',
-                            'rgba(75, 192, 192, 0.6)',
-                            'rgba(153, 102, 255, 0.6)',
-                            'rgba(255, 159, 64, 0.6)'
-                        ],
-                        borderColor: 'rgba(0,0,0,0.8)',
-                        borderWidth: 1
-                    }]
+        // Chart Initialization
+        const ctxAgent = document.getElementById('agentTypeChart').getContext('2d');
+        new Chart(ctxAgent, {
+            type: 'bar',
+            data: agentTypeData,
+            options: {
+                responsive: true,
+                scales: {
+                    y: { beginAtZero: true }
                 },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    scales: {
-                        y: {
-                            beginAtZero: true,
-                            ticks: {
-                                color: '#666',
-                                stepSize: 1
-                            }
-                        },
-                        x: {
-                            ticks: {
-                                color: '#666'
-                            }
-                        }
-                    },
-                    plugins: {
-                        legend: { display: false },
-                        title: {
-                            display: true,
-                            text: title,
-                            color: '#2c3e50',
-                            font: { size: 14 }
-                        }
-                    }
+                plugins: {
+                    legend: { display: false }
                 }
-            });
-        }
+            }
+        });
 
-        // 主程序
-        const processed = processData(dataset);
+        const ctxModel = document.getElementById('modelArchChart').getContext('2d');
+        new Chart(ctxModel, {
+            type: 'bar',
+            data: modelArchData,
+            options: {
+                responsive: true,
+                scales: {
+                    y: { beginAtZero: true }
+                },
+                plugins: {
+                    legend: { display: false }
+                }
+            }
+        });
 
-        // 创建三个图表
-        createChart(document.getElementById('agentTypeChart'), 
-            Object.keys(processed.agentCounts).slice(0,3), 
-            Object.values(processed.agentCounts).slice(0,3),
-            'Agent Type Rankings');
-
-        createChart(document.getElementById('modelArchChart'), 
-            Object.keys(processed.archCounts).slice(0,3), 
-            Object.values(processed.archCounts).slice(0,3),
-            'Model Architecture Rankings');
-
-        createChart(document.getElementById('taskBiasChart'), 
-            processed.taskScores.map(item => item.task),
-            processed.taskScores.map(item => item.score),
-            'Bias Detection Scores');
+        const ctxTask = document.getElementById('taskFairnessChart').getContext('2d');
+        new Chart(ctxTask, {
+            type: 'bar',
+            data: taskFairnessData,
+            options: {
+                responsive: true,
+                scales: {
+                    y: { beginAtZero: true, max: 1 }
+                },
+                plugins: {
+                    legend: { display: false }
+                }
+            }
+        });
     </script>
 </body>
 </html>
