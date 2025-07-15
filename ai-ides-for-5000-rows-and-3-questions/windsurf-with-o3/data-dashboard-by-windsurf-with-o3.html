@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Agentic AI Performance 2025 – Data Dashboard</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+    <style>
+        :root {
+            --bg: #f7f9fc;
+            --card-bg: #ffffff;
+            --accent: #3e7bfa;
+            --text: #1e2022;
+        }
+        body {
+            margin: 0;
+            font-family: "Helvetica Neue", Arial, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+        }
+        header {
+            padding: 1.2rem;
+            text-align: center;
+            background: var(--card-bg);
+            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+        }
+        h1 {
+            margin: 0;
+            font-size: 1.5rem;
+        }
+        .container {
+            max-width: 900px;
+            margin: 1rem auto 3rem;
+            padding: 0 1rem;
+        }
+        .stat {
+            font-size: 0.9rem;
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+        .charts {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+        .chart-card {
+            background: var(--card-bg);
+            padding: 1rem;
+            border-radius: 8px;
+            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+        }
+        canvas {
+            width: 100% !important;
+            height: auto !important;
+        }
+        @media (min-width: 600px) {
+            .charts {
+                flex-direction: row;
+                flex-wrap: wrap;
+            }
+            .chart-card {
+                flex: 1 1 calc(50% - 1rem);
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Agentic AI Performance Dataset 2025 – Overview Dashboard</h1>
+    </header>
+
+    <div class="container">
+        <p class="stat">Total records processed: <strong>5000</strong></p>
+
+        <div class="charts">
+            <div class="chart-card">
+                <h3 style="text-align:center;margin-top:0">Top 3 Agent Types with Multimodal Capability</h3>
+                <canvas id="agentTypeChart"></canvas>
+            </div>
+
+            <div class="chart-card">
+                <h3 style="text-align:center;margin-top:0">Top 3 Model Architectures (Multimodal)</h3>
+                <canvas id="modelArchChart"></canvas>
+            </div>
+
+            <div class="chart-card" style="flex: 1 1 100%">
+                <h3 style="text-align:center;margin-top:0">Top 3 Task Categories by Fairness (Bias Detection)</h3>
+                <canvas id="biasChart"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Aggregated data embedded directly (static)
+        const agentTypeLabels = ["Customer Service", "Research Assistant", "Content Creator"];
+        const agentTypeData = [7.84, 7.03, 7.03];
+
+        const modelArchLabels = ["Mixtral-8x7B", "InstructGPT", "Falcon-180B"];
+        const modelArchData = [12.43, 11.08, 10.95];
+
+        const biasLabels = ["Creative Writing", "Learning & Adaptation", "Problem Solving"];
+        const biasData = [0.78, 0.78, 0.78];
+
+        // Reusable function to build bar chart
+        const buildBar = (ctx, labels, data, title) => {
+            return new Chart(ctx, {
+                type: "bar",
+                data: {
+                    labels,
+                    datasets: [
+                        {
+                            label: title,
+                            data,
+                            backgroundColor: "rgba(62, 123, 250, 0.6)",
+                            borderColor: "rgba(62, 123, 250, 1)",
+                            borderWidth: 1,
+                        },
+                    ],
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            callbacks: {
+                                label: (ctx) => `${ctx.parsed.y}`,
+                            },
+                        },
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            grid: { color: "rgba(0,0,0,0.05)" },
+                            ticks: {
+                                color: "#555",
+                            },
+                        },
+                        x: {
+                            grid: { display: false },
+                            ticks: {
+                                color: "#555",
+                            },
+                        },
+                    },
+                },
+            });
+        };
+
+        // Build charts on DOM ready
+        window.addEventListener("DOMContentLoaded", () => {
+            buildBar(document.getElementById("agentTypeChart"), agentTypeLabels, agentTypeData, "% Share");
+            buildBar(document.getElementById("modelArchChart"), modelArchLabels, modelArchData, "% Share");
+            buildBar(document.getElementById("biasChart"), biasLabels, biasData, "Average Score");
+        });
+    </script>
+</body>
+</html>
