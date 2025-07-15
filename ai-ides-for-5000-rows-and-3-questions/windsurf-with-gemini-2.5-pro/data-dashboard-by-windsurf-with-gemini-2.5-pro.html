@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agentic AI Performance Dashboard</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background-color: #f8f9fa;
+            color: #212529;
+            margin: 0;
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .container {
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        h1, h2 {
+            color: #343a40;
+            text-align: center;
+        }
+        .chart-container {
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        .stats-box {
+            background-color: #e9ecef;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .stats-box p {
+            margin: 0;
+            font-size: 1.2em;
+            font-weight: 500;
+        }
+        .footer {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 0.9em;
+            color: #6c757d;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Agentic AI Performance Dashboard</h1>
+
+        <div class="stats-box">
+            <p>实际处理的数据总行数: 5000</p>
+        </div>
+
+        <div class="chart-container">
+            <h2>支持多模态处理的Top 3智能体类型</h2>
+            <canvas id="agentTypeChart"></canvas>
+        </div>
+
+        <div class="chart-container">
+            <h2>支持多模态处理的Top 3大模型架构</h2>
+            <canvas id="modelArchitectureChart"></canvas>
+        </div>
+
+        <div class="chart-container">
+            <h2>智能体表现公正性Top 3任务类型</h2>
+            <canvas id="biasDetectionChart"></canvas>
+        </div>
+
+        <div class="footer">
+            <p>根据 “Agentic AI Performance Dataset 2025” 数据集生成。</p>
+        </div>
+    </div>
+
+    <script>
+        // 数据分析结果
+        const agentTypeData = {
+            labels: ['Code Assistant', 'Creative Assistant', 'Research Assistant'],
+            data: [100.00, 100.00, 99.15]
+        };
+
+        const modelArchitectureData = {
+            labels: ['Gemini-1.5', 'GPT-4o', 'Claude-3-Opus'],
+            data: [100.00, 100.00, 100.00]
+        };
+
+        const biasDetectionData = {
+            labels: ['Ethical Reasoning', 'Data Analysis', 'Creative Writing'],
+            data: [0.903, 0.858, 0.857]
+        };
+
+        // 图表渲染
+        function createBarChart(ctx, labels, data, label, unit = '%') {
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: label,
+                        data: data,
+                        backgroundColor: [
+                            'rgba(173, 216, 230, 0.8)', // Light Blue
+                            'rgba(144, 238, 144, 0.8)', // Light Green
+                            'rgba(255, 228, 181, 0.8)'  // Moccasin
+                        ],
+                        borderColor: [
+                            'rgba(173, 216, 230, 1)',
+                            'rgba(144, 238, 144, 1)',
+                            'rgba(255, 228, 181, 1)'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: true,
+                    indexAxis: 'y',
+                    scales: {
+                        x: {
+                            beginAtZero: true,
+                            ticks: {
+                                callback: function(value) {
+                                    return value + unit;
+                                }
+                            }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    }
+                }
+            });
+        }
+
+        createBarChart(
+            document.getElementById('agentTypeChart').getContext('2d'),
+            agentTypeData.labels,
+            agentTypeData.data,
+            '支持多模态比例'
+        );
+
+        createBarChart(
+            document.getElementById('modelArchitectureChart').getContext('2d'),
+            modelArchitectureData.labels,
+            modelArchitectureData.data,
+            '支持多模态比例'
+        );
+
+        createBarChart(
+            document.getElementById('biasDetectionChart').getContext('2d'),
+            biasDetectionData.labels,
+            biasDetectionData.data,
+            '平均公正性分数',
+            ''
+        );
+    </script>
+</body>
+</html>
