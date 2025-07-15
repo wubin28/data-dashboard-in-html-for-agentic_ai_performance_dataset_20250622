@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agentic AI Performance Dashboard 2025</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            color: #2c3e50;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .header {
+            text-align: center;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+            backdrop-filter: blur(10px);
+        }
+        
+        .header h1 {
+            color: #2980b9;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            font-weight: 300;
+        }
+        
+        .header .subtitle {
+            color: #7f8c8d;
+            font-size: 1.2em;
+            margin-bottom: 20px;
+        }
+        
+        .stats-summary {
+            background: #ecf0f1;
+            padding: 20px;
+            border-radius: 15px;
+            display: inline-block;
+            border-left: 4px solid #3498db;
+        }
+        
+        .stats-summary h3 {
+            color: #2980b9;
+            margin-bottom: 10px;
+        }
+        
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+        
+        .card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 25px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(5px);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+        }
+        
+        .card h2 {
+            color: #2980b9;
+            margin-bottom: 20px;
+            font-size: 1.4em;
+            border-bottom: 2px solid #ecf0f1;
+            padding-bottom: 10px;
+        }
+        
+        .chart-container {
+            position: relative;
+            height: 300px;
+            margin-bottom: 20px;
+        }
+        
+        .ranking-list {
+            list-style: none;
+            margin-top: 15px;
+        }
+        
+        .ranking-list li {
+            background: #f8f9fa;
+            margin: 8px 0;
+            padding: 12px;
+            border-radius: 8px;
+            border-left: 4px solid #3498db;
+            font-weight: 500;
+        }
+        
+        .ranking-list li:nth-child(1) { border-left-color: #e74c3c; background: #fff5f5; }
+        .ranking-list li:nth-child(2) { border-left-color: #f39c12; background: #fffbf0; }
+        .ranking-list li:nth-child(3) { border-left-color: #f1c40f; background: #fffef0; }
+        
+        .metric {
+            display: inline-block;
+            background: #3498db;
+            color: white;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 0.85em;
+            margin-left: 10px;
+        }
+        
+        .full-width {
+            grid-column: 1 / -1;
+        }
+        
+        .summary-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+        
+        .summary-item {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 12px;
+            text-align: center;
+            border: 1px solid #e9ecef;
+        }
+        
+        .summary-item h4 {
+            color: #2980b9;
+            margin-bottom: 5px;
+        }
+        
+        .summary-item .value {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #e74c3c;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+            
+            .header h1 {
+                font-size: 2em;
+            }
+            
+            .grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .chart-container {
+                height: 250px;
+            }
+            
+            .card {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🤖 Agentic AI Performance Dashboard</h1>
+            <p class="subtitle">基于Kaggle数据集的AI智能体表现分析报告</p>
+            <div class="stats-summary">
+                <h3>数据集信息</h3>
+                <p><strong>实际处理数据行数:</strong> 5,000 条记录</p>
+                <p><strong>数据维度:</strong> 26 个特征字段</p>
+                <p><strong>分析日期:</strong> 2025年7月</p>
+            </div>
+        </div>
+
+        <div class="grid">
+            <div class="card">
+                <h2>📊 问题1: 多模态支持智能体类型排名</h2>
+                <div class="chart-container">
+                    <canvas id="agentTypeChart"></canvas>
+                </div>
+                <ul class="ranking-list">
+                    <li>🥇 Customer Service <span class="metric">17.06%</span></li>
+                    <li>🥈 Content Creator <span class="metric">16.88%</span></li>
+                    <li>🥉 Social Media Manager <span class="metric">16.51%</span></li>
+                </ul>
+            </div>
+
+            <div class="card">
+                <h2>🏗️ 问题2: 多模态支持模型架构排名</h2>
+                <div class="chart-container">
+                    <canvas id="modelArchChart"></canvas>
+                </div>
+                <ul class="ranking-list">
+                    <li>🥇 Mixtral-8x7B <span class="metric">18.33%</span></li>
+                    <li>🥈 Falcon-180B <span class="metric">15.85%</span></li>
+                    <li>🥉 CodeT5+ <span class="metric">15.42%</span></li>
+                </ul>
+            </div>
+
+            <div class="card">
+                <h2>⚖️ 问题3: 智能体公正性表现排名</h2>
+                <div class="chart-container">
+                    <canvas id="biasChart"></canvas>
+                </div>
+                <ul class="ranking-list">
+                    <li>🥇 Creative Writing <span class="metric">0.7831</span></li>
+                    <li>🥈 Learning & Adaptation <span class="metric">0.7778</span></li>
+                    <li>🥉 Problem Solving <span class="metric">0.7769</span></li>
+                </ul>
+            </div>
+
+            <div class="card full-width">
+                <h2>📈 数据集整体分析摘要</h2>
+                <div class="summary-grid">
+                    <div class="summary-item">
+                        <h4>数据记录数</h4>
+                        <div class="value">5,000</div>
+                    </div>
+                    <div class="summary-item">
+                        <h4>智能体类型数</h4>
+                        <div class="value">15</div>
+                    </div>
+                    <div class="summary-item">
+                        <h4>模型架构数</h4>
+                        <div class="value">12</div>
+                    </div>
+                    <div class="summary-item">
+                        <h4>任务类别数</h4>
+                        <div class="value">9</div>
+                    </div>
+                    <div class="summary-item">
+                        <h4>平均多模态支持率</h4>
+                        <div class="value">14.2%</div>
+                    </div>
+                    <div class="summary-item">
+                        <h4>平均公正性得分</h4>
+                        <div class="value">0.776</div>
+                    </div>
+                </div>
+                
+                <div style="margin-top: 20px; padding: 15px; background: #e8f5e8; border-radius: 8px; border-left: 4px solid #27ae60;">
+                    <h4 style="color: #27ae60; margin-bottom: 10px;">📋 关键发现总结</h4>
+                    <p><strong>多模态支持分析:</strong> Customer Service类智能体在多模态处理能力方面表现最佳，支持率达17.06%，其次是Content Creator(16.88%)和Social Media Manager(16.51%)。</p>
+                    <p><strong>模型架构分析:</strong> Mixtral-8x7B架构在多模态支持方面领先，支持率为18.33%，Falcon-180B(15.85%)和CodeT5+(15.42%)紧随其后。</p>
+                    <p><strong>公正性表现:</strong> Creative Writing任务类别展现了最高的公正性表现(0.7831)，说明在创意写作任务中AI系统的偏见检测能力最强。</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 图表配置
+        const chartOptions = {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    position: 'bottom',
+                    labels: {
+                        padding: 20,
+                        font: {
+                            size: 12
+                        }
+                    }
+                }
+            },
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    grid: {
+                        color: 'rgba(0,0,0,0.1)'
+                    }
+                },
+                x: {
+                    grid: {
+                        display: false
+                    }
+                }
+            }
+        };
+
+        // 智能体类型多模态支持图表
+        const agentTypeCtx = document.getElementById('agentTypeChart').getContext('2d');
+        new Chart(agentTypeCtx, {
+            type: 'bar',
+            data: {
+                labels: ['Customer Service', 'Content Creator', 'Social Media Manager'],
+                datasets: [{
+                    label: '多模态支持比例 (%)',
+                    data: [17.06, 16.88, 16.51],
+                    backgroundColor: ['#e74c3c', '#f39c12', '#f1c40f'],
+                    borderColor: ['#c0392b', '#e67e22', '#f39c12'],
+                    borderWidth: 2,
+                    borderRadius: 8
+                }]
+            },
+            options: {
+                ...chartOptions,
+                scales: {
+                    ...chartOptions.scales,
+                    y: {
+                        ...chartOptions.scales.y,
+                        max: 20,
+                        ticks: {
+                            callback: function(value) {
+                                return value + '%';
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+        // 模型架构多模态支持图表
+        const modelArchCtx = document.getElementById('modelArchChart').getContext('2d');
+        new Chart(modelArchCtx, {
+            type: 'doughnut',
+            data: {
+                labels: ['Mixtral-8x7B', 'Falcon-180B', 'CodeT5+', '其他架构'],
+                datasets: [{
+                    data: [18.33, 15.85, 15.42, 50.4],
+                    backgroundColor: ['#3498db', '#9b59b6', '#1abc9c', '#ecf0f1'],
+                    borderColor: ['#2980b9', '#8e44ad', '#16a085', '#bdc3c7'],
+                    borderWidth: 2
+                }]
+            },
+            options: {
+                ...chartOptions,
+                plugins: {
+                    ...chartOptions.plugins,
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                return context.label + ': ' + context.parsed + '%';
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+        // 公正性表现图表
+        const biasCtx = document.getElementById('biasChart').getContext('2d');
+        new Chart(biasCtx, {
+            type: 'horizontalBar',
+            data: {
+                labels: ['Creative Writing', 'Learning & Adaptation', 'Problem Solving'],
+                datasets: [{
+                    label: '公正性得分',
+                    data: [0.7831, 0.7778, 0.7769],
+                    backgroundColor: ['#27ae60', '#2ecc71', '#58d68d'],
+                    borderColor: ['#229954', '#28b463', '#52c267'],
+                    borderWidth: 2,
+                    borderRadius: 8
+                }]
+            },
+            options: {
+                ...chartOptions,
+                indexAxis: 'y',
+                scales: {
+                    x: {
+                        beginAtZero: true,
+                        max: 1.0,
+                        grid: {
+                            color: 'rgba(0,0,0,0.1)'
+                        }
+                    },
+                    y: {
+                        grid: {
+                            display: false
+                        }
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
