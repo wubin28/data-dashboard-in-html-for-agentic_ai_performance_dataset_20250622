@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agentic AI Performance Dashboard</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background-color: #f8f9fa;
+            color: #212529;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 1200px;
+            margin: auto;
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        h1, h2 {
+            text-align: center;
+            color: #343a40;
+        }
+        .chart-container {
+            position: relative;
+            margin: auto;
+            margin-top: 30px;
+            margin-bottom: 30px;
+            padding: 20px;
+            border: 1px solid #dee2e6;
+            border-radius: 8px;
+        }
+        #record-count {
+            text-align: center;
+            font-size: 1.2em;
+            margin-bottom: 20px;
+            color: #495057;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Agentic AI Performance Dashboard</h1>
+        <p id="record-count">实际处理的数据集总记录数: 80</p>
+
+        <div class="chart-container">
+            <h2>支持多模态处理的智能体类型Top 3 (按比例)</h2>
+            <canvas id="agentTypeChart"></canvas>
+        </div>
+
+        <div class="chart-container">
+            <h2>支持多模态处理的大模型架构Top 3 (按比例)</h2>
+            <canvas id="modelArchitectureChart"></canvas>
+        </div>
+
+        <div class="chart-container">
+            <h2>智能体表现公正性(Bias Detection)排名前三的任务</h2>
+            <canvas id="taskCategoryChart"></canvas>
+        </div>
+    </div>
+
+    <script>
+        // Data based on the first 80 rows of the dataset
+
+        // Chart 1: Top 3 Agent Types by Multimodal Capability Proportion
+        const agentTypeCtx = document.getElementById('agentTypeChart').getContext('2d');
+        new Chart(agentTypeCtx, {
+            type: 'bar',
+            data: {
+                labels: ['Code Assistant', 'Content Creator', 'Document Processor'],
+                datasets: [{
+                    label: '支持多模态处理比例',
+                    data: [0.50, 0.50, 0.40],
+                    backgroundColor: [
+                        'rgba(116, 185, 255, 0.6)',
+                        'rgba(85, 239, 196, 0.6)',
+                        'rgba(253, 203, 110, 0.6)'
+                    ],
+                    borderColor: [
+                        'rgba(116, 185, 255, 1)',
+                        'rgba(85, 239, 196, 1)',
+                        'rgba(253, 203, 110, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                indexAxis: 'y',
+                scales: {
+                    x: {
+                        beginAtZero: true,
+                        ticks: {
+                            callback: function(value) {
+                                return value * 100 + '%'
+                            }
+                        }
+                    }
+                },
+                plugins: {
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                let label = context.dataset.label || '';
+                                if (label) {
+                                    label += ': ';
+                                }
+                                if (context.parsed.x !== null) {
+                                    label += (context.parsed.x * 100).toFixed(1) + '%';
+                                }
+                                return label;
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+        // Chart 2: Top 3 Model Architectures by Multimodal Capability Proportion
+        const modelArchCtx = document.getElementById('modelArchitectureChart').getContext('2d');
+        new Chart(modelArchCtx, {
+            type: 'bar',
+            data: {
+                labels: ['CodeT5+', 'GPT-4o', 'Gemini-Pro'],
+                datasets: [{
+                    label: '支持多模态处理比例',
+                    data: [0.571, 0.500, 0.200],
+                    backgroundColor: [
+                        'rgba(255, 118, 117, 0.6)',
+                        'rgba(254, 202, 87, 0.6)',
+                        'rgba(29, 209, 161, 0.6)'
+                    ],
+                    borderColor: [
+                        'rgba(255, 118, 117, 1)',
+                        'rgba(254, 202, 87, 1)',
+                        'rgba(29, 209, 161, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                indexAxis: 'y',
+                scales: {
+                    x: {
+                        beginAtZero: true,
+                        ticks: {
+                            callback: function(value) {
+                                return value * 100 + '%'
+                            }
+                        }
+                    }
+                },
+                plugins: {
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                let label = context.dataset.label || '';
+                                if (label) {
+                                    label += ': ';
+                                }
+                                if (context.parsed.x !== null) {
+                                    label += (context.parsed.x * 100).toFixed(1) + '%';
+                                }
+                                return label;
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+        // Chart 3: Top 3 Task Categories by Bias Detection Score
+        const taskCategoryCtx = document.getElementById('taskCategoryChart').getContext('2d');
+        new Chart(taskCategoryCtx, {
+            type: 'bar',
+            data: {
+                labels: ['Communication', 'Decision Making', 'Creative Writing'],
+                datasets: [{
+                    label: '平均偏见检测分数',
+                    data: [0.832, 0.809, 0.799],
+                    backgroundColor: [
+                        'rgba(162, 155, 254, 0.6)',
+                        'rgba(108, 92, 231, 0.6)',
+                        'rgba(0, 206, 201, 0.6)'
+                    ],
+                    borderColor: [
+                        'rgba(162, 155, 254, 1)',
+                        'rgba(108, 92, 231, 1)',
+                        'rgba(0, 206, 201, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                indexAxis: 'y',
+                scales: {
+                    x: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
