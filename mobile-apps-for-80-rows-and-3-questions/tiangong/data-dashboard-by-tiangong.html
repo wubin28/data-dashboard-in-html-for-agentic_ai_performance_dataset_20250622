@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Agentic AI性能数据看板 2025</title>
+<style>.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 24px 40px;
+    background-color: #fff;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px
+    }
+body {
+    font-family: "Georgia", "Times New Roman", Times, serif;
+    line-height: 1.7;
+    margin: 0;
+    padding: 0;
+    background-color: #f8f9fa;
+    /* Lighter gray for background */
+    color: #212529;
+    /* Darker gray for text */
+    }
+h1, h2, h3, h4, h5, h6 {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    color: #343a40;
+    /* Slightly darker heading color */
+    margin-top: 1.8em;
+    margin-bottom: 0.8em;
+    line-height: 1.3
+    }
+h1 {
+    font-size: 2.4em;
+    text-align: center;
+    border-bottom: 2px solid #dee2e6;
+    /* Lighter border */
+    padding-bottom: 0.6em;
+    margin-bottom: 1.2em;
+    color: #0056b3;
+    /* Primary blue for main title */
+    }
+h2 {
+    font-size: 1.9em;
+    border-bottom: 1px solid #e9ecef;
+    /* Lighter border */
+    padding-bottom: 0.4em;
+    margin-top: 2.2em;
+    color: #007bff;
+    /* Brighter blue for section titles */
+    }
+p {
+    margin-bottom: 1.3em;
+    text-align: justify
+    }
+strong {
+    font-weight: 600;
+    /* Slightly less heavy than default bold */
+    color: #2c3e50;
+    /* Darker blue-gray for emphasis */
+    }
+em {
+    font-style: italic;
+    color: #5a768a;
+    /* Muted blue-gray for italics */
+    }
+a {
+    color: #007bff;
+    /* Standard blue for links */
+    text-decoration: none;
+    word-break: break-all;
+    /* Prevent long URLs from breaking layout */
+    }
+a:hover {
+    text-decoration: underline;
+    color: #0056b3;
+    /* Darker blue on hover */
+    }
+ul, ol {
+    margin-bottom: 1.3em;
+    padding-left: 2.5em
+    }
+li {
+    margin-bottom: 0.6em
+    }
+table {
+    width: 100%;
+    /* Full width for responsiveness */
+    border-collapse: collapse;
+    margin: 2.2em auto;
+    font-size: 0.9em;
+    /* Slightly smaller font for tables */
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+    border-radius: 6px;
+    overflow: hidden;
+    /* For border-radius on table cells */
+    table-layout: fixed;
+    overflow-wrap: anywhere
+    }
+th, td {
+    border: 1px solid #e9ecef;
+    /* Lighter cell borders */
+    padding: 12px 15px;
+    /* More padding */
+    text-align: left;
+    vertical-align: top
+    }
+th {
+    background-color: #f1f3f5;
+    /* Light gray for headers */
+    font-weight: 600;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    color: #343a40
+    }
+tbody tr:nth-child(even) {
+    background-color: #f8f9fa;
+    /* Zebra striping for readability */
+    }
+tbody tr:hover {
+    background-color: #e9ecef;
+    /* Hover effect for rows */
+    }
+.figure-caption {
+    font-style: italic;
+    font-size: 0.9em;
+    color: #6c757d;
+    /* Muted gray for captions */
+    text-align: center;
+    margin-top: 0.5em;
+    margin-bottom: 2.2em
+    }
+/* Chart specific styles */
+.chart-container {
+    width: 80%;
+    max-width: 700px;
+    /* Max width for chart */
+    height: auto;
+    /* Height adjusts based on aspect ratio */
+    max-height: 2000px;
+    /* Max height */
+    margin: 2em auto;
+    /* Center chart with spacing */
+    position: relative;
+    /* Needed for chart responsiveness */
+    }
+canvas {
+    display: block;
+    /* Prevents extra space below canvas */
+    width: 100% !important;
+    /* Ensure canvas fills container width */
+    height: auto !important;
+    /* Maintain aspect ratio */
+    }
+.chart-source {
+    font-size: 0.8em;
+    color: #666;
+    text-align: center;
+    margin-top: 0.5em;
+    margin-bottom: 2em
+    }
+.chart-title {
+    font-size: 1.1em;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 0.5em;
+    color: #333
+    }</style>
+<script src="https://static-recommend-img.tiangong.cn/router/agent/chart_0c881812ee9d48598f6fe7dbffb2e546.js"></script>
+</head>
+<body>
+<div class="container">
+<h1 id="section-1">Agentic AI性能数据看板 2025</h1>
+<h2 id="section-1">数据概览</h2>
+<p>本数据看板分析的数据集包含 <strong>80 条</strong> 智能体记录。这些智能体由不同的大型模型驱动，部署在多种环境中，执行各类任务，并具备不同程度的自主性和能力。下面将围绕用户关注的三个问题进行分析，并通过表格和可视化图表展示结果。</p>
+<h2 id="section-2">支持多模态处理的智能体类型</h2>
+<p>在所有智能体中，支持多模态处理（multimodal_capability）的智能体共有 <strong>16 个</strong>（占比 20%）。这些具备多模态能力的智能体分布在多种职能类型上。其中，<strong>代码助手（Code Assistant）</strong>、<strong>内容创作者（Content Creator）</strong> 和 <strong>文档处理者（Document Processor）</strong> 是拥有多模态能力智能体数量最多的前三类角色。具体分布如下：</p>
+<div class="chart-container" id="canvas-parent-1" style="width:80%;">
+<div class="chart-title">多模态能力智能体类型分布</div>
+<canvas id="multimodalAgentTypeChart"></canvas>
+<p class="chart-source">数据来源: Kaggle<a href="" rel="noopener noreferrer" target="_blank">[kaggle.com]</a></p>
+</div>
+<script>
+            const ctxMultimodalAgentType = document.getElementById('multimodalAgentTypeChart').getContext('2d');
+            new Chart(ctxMultimodalAgentType, {
+                type: 'bar', // Changed to 'bar' for better readability of labels if many categories
+                data: {
+                    labels: ['代码助手', '内容创作者', '文档处理者', '翻译智能体', '销售助理', '数据分析师'],
+                    datasets: [{
+                        label: '智能体数量',
+                        data: [4, 3, 3, 2, 2, 2],
+                        backgroundColor: [
+                            'rgba(54, 162, 235, 0.7)',
+                            'rgba(255, 206, 86, 0.7)',
+                            'rgba(75, 192, 192, 0.7)',
+                            'rgba(153, 102, 255, 0.7)',
+                            'rgba(255, 159, 64, 0.7)',
+                            'rgba(255, 99, 132, 0.7)'
+                        ],
+                        borderColor: [
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(75, 192, 192, 1)',
+                            'rgba(153, 102, 255, 1)',
+                            'rgba(255, 159, 64, 1)',
+                            'rgba(255, 99, 132, 1)'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    indexAxis: 'y', // Makes it a horizontal bar chart
+                    responsive: true,
+                    maintainAspectRatio: true,
+                    scales: {
+                        x: {
+                            beginAtZero: true,
+                            title: {
+                                display: true,
+                                text: '智能体数量'
+                            }
+                        },
+                        y: {
+                             ticks: {
+                                autoSkip: false
+                             }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return context.dataset.label + ': ' + context.raw;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        </script>
+<p>从图表中可见，<strong>代码助手</strong> 以 4 个智能体位居首位，<strong>内容创作者</strong> 和 <strong>文档处理者</strong> 各有 3 个智能体紧随其后。这表明在需要处理文本、代码甚至图像等多模态信息的任务中，这些类型的智能体更常配备多模态能力。</p>
+<h2 id="section-3">支持多模态处理的大模型架构</h2>
+<p>在支持多模态的 16 个智能体中，所采用的大模型架构分布如下：</p>
+<div class="chart-container" id="canvas-parent-2" style="width:50%;">
+<div class="chart-title">多模态能力智能体使用的模型架构分布</div>
+<canvas id="multimodalModelArchChart"></canvas>
+<p class="chart-source">数据来源: Kaggle<a href="" rel="noopener noreferrer" target="_blank">[kaggle.com]</a></p>
+</div>
+<script>
+            const ctxMultimodalModelArch = document.getElementById('multimodalModelArchChart').getContext('2d');
+            new Chart(ctxMultimodalModelArch, {
+                type: 'pie',
+                data: {
+                    labels: ['CodeT5+', 'Transformer-XL', 'GPT-4o', 'LLaMA-3', 'Falcon-180B'],
+                    datasets: [{
+                        label: '模型架构使用次数',
+                        data: [5, 4, 3, 2, 2],
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 0.7)',
+                            'rgba(54, 162, 235, 0.7)',
+                            'rgba(255, 206, 86, 0.7)',
+                            'rgba(75, 192, 192, 0.7)',
+                            'rgba(153, 102, 255, 0.7)'
+                        ],
+                        borderColor: [
+                            'rgba(255, 99, 132, 1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(75, 192, 192, 1)',
+                            'rgba(153, 102, 255, 1)'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: true,
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    let label = context.label || '';
+                                    if (label) {
+                                        label += ': ';
+                                    }
+                                    if (context.parsed !== null) {
+                                        label += context.parsed + ' 个智能体';
+                                    }
+                                    return label;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        </script>
+<p>如图所示，<strong>CodeT5+</strong> 和 <strong>Transformer-XL</strong> 是最常用的两种模型架构，分别有 5 个和 4 个智能体采用。<strong>GPT-4o</strong> 排名第三，被 3 个智能体使用。这反映出在具备多模态处理能力的智能体中，这些模型架构因其在代码生成、长文本处理或多模态理解方面的优势而被广泛采用。</p>
+<h2 id="section-4">不同任务类别中的偏见检测得分</h2>
+<p>智能体在处理不同任务时，其偏见检测得分（bias_detection_score）有所差异。我们计算了各任务类别下所有智能体的平均偏见检测得分，以评估不同任务中智能体输出的公正性。得分范围在 0 到 1 之间，得分越高表示偏见越小，表现越公正。下图展示了平均偏见检测得分最高的三类任务：</p>
+<div class="chart-container" id="canvas-parent-3" style="width:80%;">
+<div class="chart-title">各任务类别平均偏见检测得分</div>
+<canvas id="biasDetectionChart"></canvas>
+<p class="chart-source">数据来源: Kaggle<a href="" rel="noopener noreferrer" target="_blank">[kaggle.com]</a></p>
+</div>
+<script>
+            const ctxBiasDetection = document.getElementById('biasDetectionChart').getContext('2d');
+            new Chart(ctxBiasDetection, {
+                type: 'bar',
+                data: {
+                    labels: ['学习与适应', '规划与调度', '文本处理', '沟通交流', '数据与分析', '研究与总结', '决策制定', '创意写作', '问题求解', '代码生成'],
+                    datasets: [{
+                        label: '平均偏见检测得分',
+                        data: [0.8906, 0.8725, 0.8527, 0.8394, 0.8376, 0.8282, 0.8170, 0.8084, 0.7780, 0.7720],
+                        backgroundColor: [
+                            'rgba(75, 192, 192, 0.7)',
+                            'rgba(54, 162, 235, 0.7)',
+                            'rgba(255, 206, 86, 0.7)',
+                            'rgba(153, 102, 255, 0.7)',
+                            'rgba(255, 159, 64, 0.7)',
+                            'rgba(255, 99, 132, 0.7)',
+                            'rgba(201, 203, 207, 0.7)',
+                            'rgba(100, 150, 200, 0.7)',
+                            'rgba(150, 100, 200, 0.7)',
+                            'rgba(200, 150, 100, 0.7)'
+                        ],
+                        borderColor: [
+                            'rgba(75, 192, 192, 1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(153, 102, 255, 1)',
+                            'rgba(255, 159, 64, 1)',
+                            'rgba(255, 99, 132, 1)',
+                            'rgba(201, 203, 207, 1)',
+                            'rgba(100, 150, 200, 1)',
+                            'rgba(150, 100, 200, 1)',
+                            'rgba(200, 150, 100, 1)'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: true,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            suggestedMax: 1.0,
+                            title: {
+                                display: true,
+                                text: '平均偏见检测得分'
+                            }
+                        },
+                        x: {
+                             ticks: {
+                                autoSkip: false,
+                                maxRotation: 45,
+                                minRotation: 30
+                             }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+                         tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return context.dataset.label + ': ' + context.raw.toFixed(4);
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        </script>
+<p>从图表中可以看出，<strong>学习与适应（Learning &amp; Adaptation）</strong> 类任务的平均偏见检测得分最高（约 0.8906），表明在这类任务中智能体的输出相对最为公正。其次是 <strong>规划与调度（Planning &amp; Scheduling）</strong> 任务，平均得分约 0.8725。<strong>文本处理（Text Processing）</strong> 任务以平均得分 0.8527 位居第三。这些结果表明，在涉及持续学习、任务规划以及常规文本处理等任务时，智能体倾向于表现出较低的偏见。相比之下，<strong>问题求解（Problem Solving）</strong> 和 <strong>代码生成（Code Generation）</strong> 等任务的平均偏见得分略低（分别约为 0.7780 和 0.7720），提示在这些领域可能需要特别关注和缓解潜在的算法偏见。</p>
+<h2 id="section-5">数据集处理说明</h2>
+<p>本数据看板对原始 80 条记录进行了完整处理和分析。所有图表和表格中的数据均直接来源于这 80 条记录的汇总计算结果，未做任何额外过滤或删减。分析过程中，我们使用 Python 对数据进行了清洗和统计（如计算多模态支持比例、各任务的平均偏见得分等），并将结果嵌入到本 HTML 看板中，以确保在手机浏览器等各种设备上都能正常显示和交互。</p>
+<p>以上就是关于 Agentic AI 性能数据集的主要分析发现。通过本数据看板，用户可以直观地了解智能体在多模态能力分布和不同任务下的公正性表现等关键信息。</p>
+</div>
+</body>
+</html>
