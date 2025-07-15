@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agentic AI Performance Dashboard (2025)</title>
+    <style>
+        /* Base layout */
+        body {
+            font-family: "Segoe UI", "Roboto", "Helvetica Neue", Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: #f5f7fa; /* light gray */
+            color: #333;
+            line-height: 1.6;
+        }
+        header {
+            background: #ffffff;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            padding: 1rem 1.5rem;
+            text-align: center;
+        }
+        h1 {
+            margin: 0;
+            font-size: 1.8rem;
+            color: #2c3e50;
+        }
+        .container {
+            max-width: 900px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+        .card {
+            background: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+            margin-bottom: 2rem;
+            padding: 1.25rem 1.5rem;
+        }
+        .card h2 {
+            margin-top: 0;
+            font-size: 1.4rem;
+            color: #34495e;
+        }
+
+        /* Table styles */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 0.75rem;
+        }
+        th, td {
+            text-align: left;
+            padding: 0.6rem 0.5rem;
+        }
+        th {
+            background: #ecf0f3;
+            font-weight: 600;
+            color: #2c3e50;
+            border-bottom: 2px solid #dfe4ea;
+        }
+        tr:nth-child(even) td {
+            background: #fafafa;
+        }
+
+        /* Bar representation */
+        .bar-container {
+            background: #e9eff5;
+            border-radius: 4px;
+            overflow: hidden;
+            height: 16px;
+            position: relative;
+        }
+        .bar {
+            height: 100%;
+            background: linear-gradient(90deg, #74b9ff, #a4caff);
+        }
+        .value-label {
+            font-size: 0.85rem;
+            color: #555;
+        }
+        /* Responsive tweaks */
+        @media (max-width: 600px) {
+            th, td {
+                padding: 0.45rem 0.3rem;
+            }
+            h1 {
+                font-size: 1.5rem;
+            }
+            .card h2 {
+                font-size: 1.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Agentic AI Performance Dashboard&nbsp;<span style="font-size: 1rem; color:#555;">(2025 Dataset)</span></h1>
+    </header>
+    <div class="container">
+        <!-- Summary -->
+        <section class="card">
+            <h2>Dataset Overview</h2>
+            <p>Total records processed: <strong>5,000</strong></p>
+            <p>Rows with multimodal capability: <strong>740</strong></p>
+        </section>
+
+        <!-- Section 1 -->
+        <section class="card">
+            <h2>Top 3 Agent Types Supporting Multimodal Capability</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Agent Type</th>
+                        <th style="width:60%">Proportion (among multimodal agents)</th>
+                        <th>Percentage</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Row 1 -->
+                    <tr>
+                        <td>1</td>
+                        <td>Customer Service</td>
+                        <td>
+                            <div class="bar-container">
+                                <div class="bar" style="width: 7.84%;"></div>
+                            </div>
+                        </td>
+                        <td class="value-label">7.84%</td>
+                    </tr>
+                    <!-- Row 2 -->
+                    <tr>
+                        <td>2</td>
+                        <td>Research Assistant</td>
+                        <td>
+                            <div class="bar-container">
+                                <div class="bar" style="width: 7.03%;"></div>
+                            </div>
+                        </td>
+                        <td class="value-label">7.03%</td>
+                    </tr>
+                    <!-- Row 3 -->
+                    <tr>
+                        <td>3</td>
+                        <td>Content Creator</td>
+                        <td>
+                            <div class="bar-container">
+                                <div class="bar" style="width: 7.03%;"></div>
+                            </div>
+                        </td>
+                        <td class="value-label">7.03%</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- Section 2 -->
+        <section class="card">
+            <h2>Top 3 Model Architectures Supporting Multimodal Capability</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Model Architecture</th>
+                        <th style="width:60%">Proportion (among multimodal agents)</th>
+                        <th>Percentage</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Row 1 -->
+                    <tr>
+                        <td>1</td>
+                        <td>Mixtral-8x7B</td>
+                        <td>
+                            <div class="bar-container">
+                                <div class="bar" style="width: 12.43%;"></div>
+                            </div>
+                        </td>
+                        <td class="value-label">12.43%</td>
+                    </tr>
+                    <!-- Row 2 -->
+                    <tr>
+                        <td>2</td>
+                        <td>InstructGPT</td>
+                        <td>
+                            <div class="bar-container">
+                                <div class="bar" style="width: 11.08%;"></div>
+                            </div>
+                        </td>
+                        <td class="value-label">11.08%</td>
+                    </tr>
+                    <!-- Row 3 -->
+                    <tr>
+                        <td>3</td>
+                        <td>Falcon-180B</td>
+                        <td>
+                            <div class="bar-container">
+                                <div class="bar" style="width: 10.95%;"></div>
+                            </div>
+                        </td>
+                        <td class="value-label">10.95%</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- Section 3 -->
+        <section class="card">
+            <h2>Top 3 Task Categories by Fairness (Bias Detection Score)</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Task Category</th>
+                        <th style="width:60%">Average Bias Detection Score</th>
+                        <th>Score</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Row 1 -->
+                    <tr>
+                        <td>1</td>
+                        <td>Creative Writing</td>
+                        <td>
+                            <div class="bar-container">
+                                <div class="bar" style="width: 78.31%;"></div>
+                            </div>
+                        </td>
+                        <td class="value-label">0.783</td>
+                    </tr>
+                    <!-- Row 2 -->
+                    <tr>
+                        <td>2</td>
+                        <td>Learning &amp; Adaptation</td>
+                        <td>
+                            <div class="bar-container">
+                                <div class="bar" style="width: 77.78%;"></div>
+                            </div>
+                        </td>
+                        <td class="value-label">0.778</td>
+                    </tr>
+                    <!-- Row 3 -->
+                    <tr>
+                        <td>3</td>
+                        <td>Problem Solving</td>
+                        <td>
+                            <div class="bar-container">
+                                <div class="bar" style="width: 77.69%;"></div>
+                            </div>
+                        </td>
+                        <td class="value-label">0.777</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+    </div>
+</body>
+</html> 
