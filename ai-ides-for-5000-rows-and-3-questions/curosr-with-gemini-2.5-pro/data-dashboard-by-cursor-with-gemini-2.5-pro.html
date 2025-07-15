@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agentic AI Performance Dashboard</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #f8f9fa;
+            color: #212529;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 1200px;
+            margin: auto;
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        h1, h2 {
+            text-align: center;
+            color: #343a40;
+        }
+        .record-count {
+            text-align: center;
+            font-size: 1.1em;
+            color: #6c757d;
+            margin-bottom: 30px;
+        }
+        .chart-container {
+            position: relative;
+            margin: auto;
+            margin-bottom: 40px;
+            padding: 20px;
+            border: 1px solid #dee2e6;
+            border-radius: 8px;
+            background-color: #fff;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+        }
+        @media (min-width: 768px) {
+            .grid {
+                grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Agentic AI Performance Dashboard</h1>
+        <p class="record-count">Displaying analysis for 455 records from the dataset.</p>
+
+        <div class="grid">
+            <div class="chart-container">
+                <h2>Top 3 Agent Types with Multimodal Capability</h2>
+                <canvas id="agentTypeChart"></canvas>
+            </div>
+            <div class="chart-container">
+                <h2>Top 3 Model Architectures with Multimodal Capability</h2>
+                <canvas id="modelArchitectureChart"></canvas>
+            </div>
+            <div class="chart-container">
+                <h2>Top 3 Task Categories by Bias Detection Score</h2>
+                <canvas id="biasDetectionChart"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Data derived from the first 455 rows of agentic_ai_performance_dataset_20250622.csv
+        const q1Data = {
+            labels: ['Data Analyst', 'HR Recruiter', 'Sales Assistant'],
+            proportions: [11.4, 9.1, 9.1]
+        };
+
+        const q2Data = {
+            labels: ['GPT-4o', 'CodeT5+', 'Falcon-180B'],
+            proportions: [22.7, 15.9, 13.6]
+        };
+        
+        const q3Data = {
+            labels: ['Decision Making', 'Planning & Scheduling', 'Communication'],
+            scores: [0.816, 0.798, 0.793]
+        };
+
+        const chartColors = {
+            backgroundColor: [
+                'rgba(173, 216, 230, 0.5)', // Light Blue
+                'rgba(144, 238, 144, 0.5)', // Light Green
+                'rgba(255, 228, 181, 0.5)', // Moccasin (Light Yellow/Orange)
+            ],
+            borderColor: [
+                'rgba(173, 216, 230, 1)',
+                'rgba(144, 238, 144, 1)',
+                'rgba(255, 228, 181, 1)',
+            ]
+        };
+
+        // Chart 1: Agent Type Proportions
+        new Chart(document.getElementById('agentTypeChart'), {
+            type: 'bar',
+            data: {
+                labels: q1Data.labels,
+                datasets: [{
+                    label: 'Proportion of Multimodal Agents (%)',
+                    data: q1Data.proportions,
+                    backgroundColor: chartColors.backgroundColor,
+                    borderColor: chartColors.borderColor,
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                indexAxis: 'y',
+                scales: {
+                    x: {
+                        beginAtZero: true,
+                        ticks: {
+                            callback: function(value) {
+                                return value + "%"
+                            }
+                        }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        display: false
+                    }
+                }
+            }
+        });
+
+        // Chart 2: Model Architecture Proportions
+        new Chart(document.getElementById('modelArchitectureChart'), {
+            type: 'bar',
+            data: {
+                labels: q2Data.labels,
+                datasets: [{
+                    label: 'Proportion of Multimodal Agents (%)',
+                    data: q2Data.proportions,
+                    backgroundColor: chartColors.backgroundColor,
+                    borderColor: chartColors.borderColor,
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                indexAxis: 'y',
+                scales: {
+                     x: {
+                        beginAtZero: true,
+                        ticks: {
+                            callback: function(value) {
+                                return value + "%"
+                            }
+                        }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        display: false
+                    }
+                }
+            }
+        });
+
+        // Chart 3: Bias Detection Score
+        new Chart(document.getElementById('biasDetectionChart'), {
+            type: 'bar',
+            data: {
+                labels: q3Data.labels,
+                datasets: [{
+                    label: 'Average Bias Detection Score',
+                    data: q3Data.scores,
+                    backgroundColor: chartColors.backgroundColor,
+                    borderColor: chartColors.borderColor,
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                indexAxis: 'y',
+                scales: {
+                    x: {
+                        beginAtZero: true,
+                        max: 1.0
+                    }
+                },
+                plugins: {
+                    legend: {
+                        display: false
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html> 
