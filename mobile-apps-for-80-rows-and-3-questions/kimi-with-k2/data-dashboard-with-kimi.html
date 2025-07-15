@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>Agentic AI Performance Dashboard 2025</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<style>
+  body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;background:#f7f9fc;color:#333}
+  header{background:#e8f0fe;padding:1rem 1rem 0.5rem}
+  h1{font-size:1.4rem;margin:0 0 0.4rem}
+  p{margin:0 0 0.5rem;font-size:0.85rem;color:#555}
+  .grid{display:flex;flex-wrap:wrap;gap:12px;padding:12px}
+  .card{flex:1 1 300px;background:#fff;border:1px solid #e0e6ed;border-radius:8px;padding:12px;box-shadow:0 1px 3px rgba(0,0,0,.03)}
+  .card h2{font-size:1rem;margin:0 0 8px;color:#1976d2}
+  .chart{height:220px}
+</style>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+<header>
+  <h1>Agentic AI Performance Dashboard 2025</h1>
+  <p>已处理数据：<strong id="rows">0</strong> 条</p>
+</header>
+
+<div class="grid">
+  <div class="card">
+    <h2>支持多模态的智能体类型占比 Top3</h2>
+    <div class="chart"><canvas id="chart1"></canvas></div>
+  </div>
+  <div class="card">
+    <h2>支持多模态的大模型架构占比 Top3</h2>
+    <div class="chart"><canvas id="chart2"></canvas></div>
+  </div>
+  <div class="card">
+    <h2>任务类别公正性得分 Top3</h2>
+    <div class="chart"><canvas id="chart3"></canvas></div>
+  </div>
+</div>
+
+<script>
+// 实际数据集（80条）
+const data = [
+{agent_type:"Project Manager",model_architecture:"PaLM-2",task_category:"Text Processing",multimodal_capability:false,bias_detection_score:0.8061},
+{agent_type:"Marketing Assistant",model_architecture:"Mixtral-8x7B",task_category:"Decision Making",multimodal_capability:false,bias_detection_score:0.7816},
+{agent_type:"QA Tester",model_architecture:"Mixtral-8x7B",task_category:"Communication",multimodal_capability:false,bias_detection_score:0.8214},
+{agent_type:"Code Assistant",model_architecture:"CodeT5+",task_category:"Creative Writing",multimodal_capability:true,bias_detection_score:0.8684},
+{agent_type:"QA Tester",model_architecture:"Falcon-180B",task_category:"Planning & Scheduling",multimodal_capability:false,bias_detection_score:0.8417},
+{agent_type:"Email Manager",model_architecture:"Transformer-XL",task_category:"Communication",multimodal_capability:false,bias_detection_score:0.9265},
+{agent_type:"Project Manager",model_architecture:"InstructGPT",task_category:"Text Processing",multimodal_capability:false,bias_detection_score:0.8922},
+{agent_type:"Sales Assistant",model_architecture:"GPT-4o",task_category:"Creative Writing",multimodal_capability:true,bias_detection_score:0.7308},
+{agent_type:"Project Manager",model_architecture:"LLaMA-3",task_category:"Learning & Adaptation",multimodal_capability:false,bias_detection_score:0.9319},
+{agent_type:"Customer Service",model_architecture:"Claude-3.5",task_category:"Research & Summarization",multimodal_capability:false,bias_detection_score:0.7862},
+{agent_type:"Document Processor",model_architecture:"Transformer-XL",task_category:"Decision Making",multimodal_capability:false,bias_detection_score:0.7354},
+{agent_type:"Sales Assistant",model_architecture:"Transformer-XL",task_category:"Planning & Scheduling",multimodal_capability:false,bias_detection_score:0.9121},
+{agent_type:"Customer Service",model_architecture:"Claude-3.5",task_category:"Planning & Scheduling",multimodal_capability:false,bias_detection_score:0.6423},
+{agent_type:"Translation Agent",model_architecture:"Mixtral-8x7B",task_category:"Creative Writing",multimodal_capability:false,bias_detection_score:0.71},
+{agent_type:"Document Processor",model_architecture:"CodeT5+",task_category:"Data Analysis",multimodal_capability:true,bias_detection_score:0.7237},
+{agent_type:"HR Recruiter",model_architecture:"InstructGPT",task_category:"Communication",multimodal_capability:false,bias_detection_score:0.7512},
+{agent_type:"Code Assistant",model_architecture:"Claude-3.5",task_category:"Text Processing",multimodal_capability:false,bias_detection_score:0.7267},
+{agent_type:"Customer Service",model_architecture:"CodeT5+",task_category:"Creative Writing",multimodal_capability:true,bias_detection_score:0.949},
+{agent_type:"Content Creator",model_architecture:"Transformer-XL",task_category:"Problem Solving",multimodal_capability:false,bias_detection_score:0.8157},
+{agent_type:"Task Planner",model_architecture:"InstructGPT",task_category:"Code Generation",multimodal_capability:false,bias_detection_score:0.8931},
+{agent_type:"Project Manager",model_architecture:"PaLM-2",task_category:"Text Processing",multimodal_capability:false,bias_detection_score:0.9494},
+{agent_type:"HR Recruiter",model_architecture:"InstructGPT",task_category:"Research & Summarization",multimodal_capability:true,bias_detection_score:0.7845},
+{agent_type:"QA Tester",model_architecture:"PaLM-2",task_category:"Problem Solving",multimodal_capability:false,bias_detection_score:0.7355},
+{agent_type:"Document Processor",model_architecture:"Falcon-180B",task_category:"Problem Solving",multimodal_capability:false,bias_detection_score:0.9209},
+{agent_type:"Data Analyst",model_architecture:"LLaMA-3",task_category:"Research & Summarization",multimodal_capability:false,bias_detection_score:0.8504},
+{agent_type:"Task Planner",model_architecture:"Mixtral-8x7B",task_category:"Problem Solving",multimodal_capability:false,bias_detection_score:0.8038},
+{agent_type:"Sales Assistant",model_architecture:"Gemini-Pro",task_category:"Communication",multimodal_capability:false,bias_detection_score:0.7126},
+{agent_type:"Code Assistant",model_architecture:"LLaMA-3",task_category:"Planning & Scheduling",multimodal_capability:false,bias_detection_score:0.622},
+{agent_type:"Financial Advisor",model_architecture:"Falcon-180B",task_category:"Learning & Adaptation",multimodal_capability:false,bias_detection_score:0.791},
+{agent_type:"Code Assistant",model_architecture:"Claude-3.5",task_category:"Problem Solving",multimodal_capability:false,bias_detection_score:0.6271},
+{agent_type:"Content Creator",model_architecture:"Transformer-XL",task_category:"Text Processing",multimodal_capability:false,bias_detection_score:0.6322},
+{agent_type:"Data Analyst",model_architecture:"InstructGPT",task_category:"Creative Writing",multimodal_capability:false,bias_detection_score:0.6479},
+{agent_type:"Customer Service",model_architecture:"GPT-4o",task_category:"Research & Summarization",multimodal_capability:false,bias_detection_score:0.6472},
+{agent_type:"Document Processor",model_architecture:"GPT-4o",task_category:"Creative Writing",multimodal_capability:true,bias_detection_score:0.726},
+{agent_type:"Email Manager",model_architecture:"Claude-3.5",task_category:"Problem Solving",multimodal_capability:false,bias_detection_score:0.6859},
+{agent_type:"Social Media Manager",model_architecture:"Gemini-Pro",task_category:"Learning & Adaptation",multimodal_capability:false,bias_detection_score:0.6696},
+{agent_type:"Research Assistant",model_architecture:"Transformer-XL",task_category:"Creative Writing",multimodal_capability:true,bias_detection_score:0.829},
+{agent_type:"Task Planner",model_architecture:"Falcon-180B",task_category:"Data Analysis",multimodal_capability:false,bias_detection_score:0.941},
+{agent_type:"Project Manager",model_architecture:"Transformer-XL",task_category:"Text Processing",multimodal_capability:false,bias_detection_score:0.6415},
+{agent_type:"Project Manager",model_architecture:"Mixtral-8x7B",task_category:"Text Processing",multimodal_capability:false,bias_detection_score:0.7802},
+{agent_type:"Project Manager",model_architecture:"CodeT5+",task_category:"Data Analysis",multimodal_capability:false,bias_detection_score:0.9037},
+{agent_type:"Code Assistant",model_architecture:"Falcon-180B",task_category:"Learning & Adaptation",multimodal_capability:false,bias_detection_score:0.7145},
+{agent_type:"Financial Advisor",model_architecture:"InstructGPT",task_category:"Data Analysis",multimodal_capability:false,bias_detection_score:0.7478},
+{agent_type:"Sales Assistant",model_architecture:"Transformer-XL",task_category:"Planning & Scheduling",multimodal_capability:false,bias_detection_score:0.7685},
+{agent_type:"Content Creator",model_architecture:"LLaMA-3",task_category:"Text Processing",multimodal_capability:false,bias_detection_score:0.6322},
+{agent_type:"Social Media Manager",model_architecture:"CodeT5+",task_category:"Text Processing",multimodal_capability:false,bias_detection_score:0.777},
+{agent_type:"QA Tester",model_architecture:"GPT-4o",task_category:"Problem Solving",multimodal_capability:false,bias_detection_score:0.7166},
+{agent_type:"Data Analyst",model_architecture:"Mixtral-8x7B",task_category:"Problem Solving",multimodal_capability:false,bias_detection_score:0.8902},
+{agent_type:"Content Creator",model_architecture:"Transformer-XL",task_category:"Creative Writing",multimodal_capability:true,bias_detection_score:0.857},
+{agent_type:"Content Creator",model_architecture:"Claude-3.5",task_category:"Learning & Adaptation",multimodal_capability:false,bias_detection_score:0.6179},
+{agent_type:"Customer Service",model_architecture:"InstructGPT",task_category:"Planning & Scheduling",multimodal_capability:false,bias_detection_score:0.8618},
+{agent_type:"Social Media Manager",model_architecture:"Gemini-Pro",task_category:"Data Analysis",multimodal_capability:false,bias_detection_score:0.7966},
+{agent_type:"Project Manager",model_architecture:"Gemini-Pro",task_category:"Creative Writing",multimodal_capability:false,bias_detection_score:0.9257},
+{agent_type:"Task Planner",model_architecture:"Falcon-180B",task_category:"Decision Making",multimodal_capability:false,bias_detection_score:0.8934},
+{agent_type:"Email Manager",model_architecture:"PaLM-2",task_category:"Planning & Scheduling",multimodal_capability:false,bias_detection_score:0.7657},
+{agent_type:"Research Assistant",model_architecture:"LLaMA-3",task_category:"Decision Making",multimodal_capability:false,bias_detection_score:0.824},
+{agent_type:"Data Analyst",model_architecture:"Gemini-Pro",task_category:"Text Processing",multimodal_capability:false,bias_detection_score:0.7463},
+{agent_type:"Content Creator",model_architecture:"Mixtral-8x7B",task_category:"Creative Writing",multimodal_capability:false,bias_detection_score:0.7591},
+{agent_type:"Social Media Manager",model_architecture:"InstructGPT",task_category:"Problem Solving",multimodal_capability:false,bias_detection_score:0.6683},
+{agent_type:"Marketing Assistant",model_architecture:"GPT-4o",task_category:"Planning & Scheduling",multimodal_capability:false,bias_detection_score:0.698},
+{agent_type:"Task Planner",model_architecture:"CodeT5+",task_category:"Text Processing",multimodal_capability:false,bias_detection_score:0.8349},
+{agent_type:"Project Manager",model_architecture:"Mixtral-8x7B",task_category:"Creative Writing",multimodal_capability:false,bias_detection_score:0.6358},
+{agent_type:"Sales Assistant",model_architecture:"CodeT5+",task_category:"Data Analysis",multimodal_capability:false,bias_detection_score:0.687},
+{agent_type:"Financial Advisor",model_architecture:"InstructGPT",task_category:"Creative Writing",multimodal_capability:false,bias_detection_score:0.6729},
+{agent_type:"Customer Service",model_architecture:"InstructGPT",task_category:"Learning & Adaptation",multimodal_capability:false,bias_detection_score:0.8303},
+{agent_type:"Social Media Manager",model_architecture:"Transformer-XL",task_category:"Code Generation",multimodal_capability:false,bias_detection_score:0.704},
+{agent_type:"Social Media Manager",model_architecture:"LLaMA-3",task_category:"Learning & Adaptation",multimodal_capability:false,bias_detection_score:0.6102},
+{agent_type:"Sales Assistant",model_architecture:"Claude-3.5",task_category:"Data Analysis",multimodal_capability:true,bias_detection_score:0.6177},
+{agent_type:"Data Analyst",model_architecture:"GPT-4o",task_category:"Decision Making",multimodal_capability:false,bias_detection_score:0.6737},
+{agent_type:"Task Planner",model_architecture:"PaLM-2",task_category:"Communication",multimodal_capability:false,bias_detection_score:0.9486},
+{agent_type:"Research Assistant",model_architecture:"GPT-4o",task_category:"Creative Writing",multimodal_capability:true,bias_detection_score:0.908},
+{agent_type:"Data Analyst",model_architecture:"Gemini-Pro",task_category:"Creative Writing",multimodal_capability:true,bias_detection_score:0.7298},
+{agent_type:"Project Manager",model_architecture:"CodeT5+",task_category:"Problem Solving",multimodal_capability:false,bias_detection_score:0.8435},
+{agent_type:"QA Tester",model_architecture:"CodeT5+",task_category:"Text Processing",multimodal_capability:false,bias_detection_score:0.8161},
+{agent_type:"Document Processor",model_architecture:"PaLM-2",task_category:"Code Generation",multimodal_capability:false,bias_detection_score:0.667},
+{agent_type:"Research Assistant",model_architecture:"Mixtral-8x7B",task_category:"Data Analysis",multimodal_capability:true,bias_detection_score:0.6754}
+];
+
+document.getElementById('rows').textContent = data.length;
+
+function top3(arr,key,val,label){
+  const filtered = arr.filter(d=>d[val]);
+  const map = {};
+  filtered.forEach(d=>{
+    map[d[key]] = (map[d[key]]||0)+1;
+  });
+  const sorted = Object.entries(map).sort((a,b)=>b[1]-a[1]).slice(0,3);
+  return {
+    labels: sorted.map(x=>x[0]),
+    values: sorted.map(x=>x[1])
+  };
+}
+
+function top3TaskBias(arr){
+  const map={};
+  arr.forEach(d=>{
+    if(!map[d.task_category]) map[d.task_category]=[];
+    map[d.task_category].push(+d.bias_detection_score);
+  });
+  const avg = Object.entries(map).map(([k,v])=>({cat:k,val:v.reduce((a,b)=>a+b)/v.length}));
+  avg.sort((a,b)=>b.val-a.val);
+  return {
+    labels: avg.slice(0,3).map(x=>x.cat),
+    values: avg.slice(0,3).map(x=>x.val.toFixed(2))
+  };
+}
+
+const t1 = top3(data,'agent_type','multimodal_capability');
+const t2 = top3(data,'model_architecture','multimodal_capability');
+const t3 = top3TaskBias(data);
+
+function draw(id,labels,values,title){
+  new Chart(document.getElementById(id),{
+    type:'bar',
+    data:{labels, datasets:[{label:title,data:values,backgroundColor:'rgba(25,118,210,0.25)',borderColor:'#1976d2',borderWidth:1}]},
+    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{y:{beginAtZero:true}}}
+  });
+}
+
+draw('chart1',t1.labels,t1.values,'智能体数量');
+draw('chart2',t2.labels,t2.values,'智能体数量');
+draw('chart3',t3.labels,t3.values,'平均公正性得分');
+</script>
+</body>
+</html>
