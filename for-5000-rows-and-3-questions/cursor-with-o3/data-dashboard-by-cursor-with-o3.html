@@ -1,259 +1,141 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Agentic AI Performance Dashboard (2025)</title>
-    <style>
-        /* Base layout */
-        body {
-            font-family: "Segoe UI", "Roboto", "Helvetica Neue", Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background: #f5f7fa; /* light gray */
-            color: #333;
-            line-height: 1.6;
-        }
-        header {
-            background: #ffffff;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-            padding: 1rem 1.5rem;
-            text-align: center;
-        }
-        h1 {
-            margin: 0;
-            font-size: 1.8rem;
-            color: #2c3e50;
-        }
-        .container {
-            max-width: 900px;
-            margin: 2rem auto;
-            padding: 0 1rem;
-        }
-        .card {
-            background: #ffffff;
-            border-radius: 8px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.08);
-            margin-bottom: 2rem;
-            padding: 1.25rem 1.5rem;
-        }
-        .card h2 {
-            margin-top: 0;
-            font-size: 1.4rem;
-            color: #34495e;
-        }
-
-        /* Table styles */
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 0.75rem;
-        }
-        th, td {
-            text-align: left;
-            padding: 0.6rem 0.5rem;
-        }
-        th {
-            background: #ecf0f3;
-            font-weight: 600;
-            color: #2c3e50;
-            border-bottom: 2px solid #dfe4ea;
-        }
-        tr:nth-child(even) td {
-            background: #fafafa;
-        }
-
-        /* Bar representation */
-        .bar-container {
-            background: #e9eff5;
-            border-radius: 4px;
-            overflow: hidden;
-            height: 16px;
-            position: relative;
-        }
-        .bar {
-            height: 100%;
-            background: linear-gradient(90deg, #74b9ff, #a4caff);
-        }
-        .value-label {
-            font-size: 0.85rem;
-            color: #555;
-        }
-        /* Responsive tweaks */
-        @media (max-width: 600px) {
-            th, td {
-                padding: 0.45rem 0.3rem;
-            }
-            h1 {
-                font-size: 1.5rem;
-            }
-            .card h2 {
-                font-size: 1.2rem;
-            }
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Agentic AI Performance Dashboard 2025</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f5f7fa;
+      color: #333;
+      margin: 0;
+      padding: 0;
+    }
+    header {
+      background: #ffffff;
+      padding: 1rem 1.5rem;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+      position: sticky;
+      top: 0;
+    }
+    h1 {
+      margin: 0;
+      font-size: 1.5rem;
+    }
+    .container {
+      padding: 1.5rem;
+      max-width: 960px;
+      margin: auto;
+    }
+    .card {
+      background: #fff;
+      border-radius: 8px;
+      padding: 1rem 1rem 2rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+    }
+    canvas {
+      max-width: 100%;
+      height: 260px;
+    }
+    .note {
+      font-size: 0.9rem;
+      color: #555;
+      margin-top: 0.5rem;
+    }
+    @media (prefers-color-scheme: dark) {
+      body {
+        background: #111;
+        color: #eee;
+      }
+      header {
+        background: #1e1e1e;
+      }
+      .card {
+        background: #1b1b1b;
+      }
+    }
+  </style>
+  <!-- Chart.js via CDN (lightweight) -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
-    <header>
-        <h1>Agentic AI Performance Dashboard&nbsp;<span style="font-size: 1rem; color:#555;">(2025 Dataset)</span></h1>
-    </header>
-    <div class="container">
-        <!-- Summary -->
-        <section class="card">
-            <h2>Dataset Overview</h2>
-            <p>Total records processed: <strong>5,000</strong></p>
-            <p>Rows with multimodal capability: <strong>740</strong></p>
-        </section>
-
-        <!-- Section 1 -->
-        <section class="card">
-            <h2>Top 3 Agent Types Supporting Multimodal Capability</h2>
-            <table>
-                <thead>
-                    <tr>
-                        <th>#</th>
-                        <th>Agent Type</th>
-                        <th style="width:60%">Proportion (among multimodal agents)</th>
-                        <th>Percentage</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <!-- Row 1 -->
-                    <tr>
-                        <td>1</td>
-                        <td>Customer Service</td>
-                        <td>
-                            <div class="bar-container">
-                                <div class="bar" style="width: 7.84%;"></div>
-                            </div>
-                        </td>
-                        <td class="value-label">7.84%</td>
-                    </tr>
-                    <!-- Row 2 -->
-                    <tr>
-                        <td>2</td>
-                        <td>Research Assistant</td>
-                        <td>
-                            <div class="bar-container">
-                                <div class="bar" style="width: 7.03%;"></div>
-                            </div>
-                        </td>
-                        <td class="value-label">7.03%</td>
-                    </tr>
-                    <!-- Row 3 -->
-                    <tr>
-                        <td>3</td>
-                        <td>Content Creator</td>
-                        <td>
-                            <div class="bar-container">
-                                <div class="bar" style="width: 7.03%;"></div>
-                            </div>
-                        </td>
-                        <td class="value-label">7.03%</td>
-                    </tr>
-                </tbody>
-            </table>
-        </section>
-
-        <!-- Section 2 -->
-        <section class="card">
-            <h2>Top 3 Model Architectures Supporting Multimodal Capability</h2>
-            <table>
-                <thead>
-                    <tr>
-                        <th>#</th>
-                        <th>Model Architecture</th>
-                        <th style="width:60%">Proportion (among multimodal agents)</th>
-                        <th>Percentage</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <!-- Row 1 -->
-                    <tr>
-                        <td>1</td>
-                        <td>Mixtral-8x7B</td>
-                        <td>
-                            <div class="bar-container">
-                                <div class="bar" style="width: 12.43%;"></div>
-                            </div>
-                        </td>
-                        <td class="value-label">12.43%</td>
-                    </tr>
-                    <!-- Row 2 -->
-                    <tr>
-                        <td>2</td>
-                        <td>InstructGPT</td>
-                        <td>
-                            <div class="bar-container">
-                                <div class="bar" style="width: 11.08%;"></div>
-                            </div>
-                        </td>
-                        <td class="value-label">11.08%</td>
-                    </tr>
-                    <!-- Row 3 -->
-                    <tr>
-                        <td>3</td>
-                        <td>Falcon-180B</td>
-                        <td>
-                            <div class="bar-container">
-                                <div class="bar" style="width: 10.95%;"></div>
-                            </div>
-                        </td>
-                        <td class="value-label">10.95%</td>
-                    </tr>
-                </tbody>
-            </table>
-        </section>
-
-        <!-- Section 3 -->
-        <section class="card">
-            <h2>Top 3 Task Categories by Fairness (Bias Detection Score)</h2>
-            <table>
-                <thead>
-                    <tr>
-                        <th>#</th>
-                        <th>Task Category</th>
-                        <th style="width:60%">Average Bias Detection Score</th>
-                        <th>Score</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <!-- Row 1 -->
-                    <tr>
-                        <td>1</td>
-                        <td>Creative Writing</td>
-                        <td>
-                            <div class="bar-container">
-                                <div class="bar" style="width: 78.31%;"></div>
-                            </div>
-                        </td>
-                        <td class="value-label">0.783</td>
-                    </tr>
-                    <!-- Row 2 -->
-                    <tr>
-                        <td>2</td>
-                        <td>Learning &amp; Adaptation</td>
-                        <td>
-                            <div class="bar-container">
-                                <div class="bar" style="width: 77.78%;"></div>
-                            </div>
-                        </td>
-                        <td class="value-label">0.778</td>
-                    </tr>
-                    <!-- Row 3 -->
-                    <tr>
-                        <td>3</td>
-                        <td>Problem Solving</td>
-                        <td>
-                            <div class="bar-container">
-                                <div class="bar" style="width: 77.69%;"></div>
-                            </div>
-                        </td>
-                        <td class="value-label">0.777</td>
-                    </tr>
-                </tbody>
-            </table>
-        </section>
+  <header>
+    <h1>Agentic AI Performance Dashboard (Records processed: 5000)</h1>
+  </header>
+  <div class="container">
+    <!-- Question 1 -->
+    <div class="card">
+      <h2>1. Agent Types with Highest Multimodal Capability Share</h2>
+      <canvas id="agentChart"></canvas>
     </div>
+
+    <!-- Question 2 -->
+    <div class="card">
+      <h2>2. Model Architectures with Highest Multimodal Capability Share</h2>
+      <canvas id="archChart"></canvas>
+    </div>
+
+    <!-- Question 3 -->
+    <div class="card">
+      <h2>3. Task Categories with Highest Median Bias-Detection Score</h2>
+      <canvas id="biasChart"></canvas>
+      <p class="note">Bias-detection score: higher = fairer model behaviour</p>
+    </div>
+  </div>
+
+  <script>
+    // Data extracted from the provided dataset
+    const agentLabels = ["Customer Service", "Research Assistant", "Content Creator"];
+    const agentData = [7.84, 7.03, 7.03];
+
+    const archLabels = ["Mixtral-8x7B", "InstructGPT", "Falcon-180B"];
+    const archData = [12.43, 11.08, 10.95];
+
+    const biasLabels = ["Creative Writing", "Problem Solving", "Learning & Adaptation"];
+    const biasData = [0.782, 0.7806, 0.77795];
+
+    function createBar(ctx, labels, data, suffix = "", decimals = 2) {
+      return new Chart(ctx, {
+        type: "bar",
+        data: {
+          labels: labels,
+          datasets: [
+            {
+              data: data,
+              backgroundColor: ["#50b5ff", "#7fc8ff", "#a8d8ff"],
+              borderRadius: 4,
+              barPercentage: 0.6,
+            },
+          ],
+        },
+        options: {
+          scales: {
+            y: {
+              beginAtZero: true,
+              ticks: {
+                callback: (v) => v.toFixed(decimals) + suffix,
+              },
+            },
+          },
+          plugins: {
+            legend: { display: false },
+            tooltip: {
+              callbacks: {
+                label: (ctx) => ctx.raw.toFixed(decimals) + suffix,
+              },
+            },
+          },
+          responsive: true,
+          maintainAspectRatio: false,
+        },
+      });
+    }
+
+    createBar(document.getElementById("agentChart"), agentLabels, agentData, "%");
+    createBar(document.getElementById("archChart"), archLabels, archData, "%");
+    createBar(document.getElementById("biasChart"), biasLabels, biasData, "", 3);
+  </script>
 </body>
 </html> 
