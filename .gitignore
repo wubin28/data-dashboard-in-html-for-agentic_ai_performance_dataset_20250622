@@ -1,0 +1,52 @@
+# Python virtual environments
+venv/
+.venv/
+
+# Python cache and bytecode
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+
+# macOS system files
+.DS_Store
+
+# VSCode settings
+.vscode/
+
+# Environment variables
+.env
+.env.*
+
+# Ignore data exports and temp files
+*.csv~
+*.xlsx~
+*.tmp
+*.log
+
+# Ignore node_modules just in case
+node_modules/
+
+# Ignore backup files
+*~
+
+# Ignore other IDE/project files
+.idea/
+*.iml
+
+# Ignore test output
+htmlcov/
+coverage*
+
+# Ignore build artifacts
+dist/
+build/
+*.egg-info/
+
+# Ignore HTML dashboard outputs in temp locations (but not in versioned folders)
+# (Do not ignore HTML files in dashboard result folders)
+
+# End of .gitignore 
