@@ -1,133 +1,169 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Agentic AI Performance 数据看板</title>
-  <!-- Chart.js CDN -->
-  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
-  <style>
-    :root {
-      --bg: #f8f9fa;
-      --card-bg: #ffffff;
-      --text: #212529;
-      --accent1: #4dabf7;
-      --accent2: #63e6be;
-      --accent3: #ffd43b;
-    }
-    body {
-      margin: 0;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 1.5rem;
-      padding: 1rem;
-    }
-    h1 {
-      font-size: 1.6rem;
-      margin: 0.5rem 0 0;
-      text-align: center;
-    }
-    .card {
-      background: var(--card-bg);
-      width: 100%;
-      max-width: 700px;
-      padding: 1rem;
-      border-radius: 12px;
-      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
-    }
-    .card h2 {
-      font-size: 1.2rem;
-      margin: 0 0 1rem;
-      text-align: center;
-    }
-    canvas {
-      width: 100% !important;
-      height: auto !important;
-    }
-    @media (min-width: 768px) {
-      body {
-        flex-direction: row;
-        flex-wrap: wrap;
-        justify-content: center;
-      }
-      .card {
-        flex: 1 1 45%;
-      }
-    }
-  </style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Agentic AI Performance Dashboard 2025</title>
+<!-- Chart.js CDN -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style>
+  :root {
+    --bg: #f7f9fc;
+    --card-bg: #ffffff;
+    --text: #1a1a1a;
+    --accent1: #4e79a7;
+    --accent2: #f28e2b;
+    --accent3: #e15759;
+  }
+  body {
+    margin: 0;
+    padding: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+  }
+  .container {
+    max-width: 1200px;
+    margin: auto;
+    padding: 1rem;
+  }
+  h1 {
+    text-align: center;
+    margin-bottom: 0.5rem;
+  }
+  .subtitle {
+    text-align: center;
+    margin: 0 0 2rem 0;
+    font-size: 0.9rem;
+    color: #555;
+  }
+  .grid {
+    display: grid;
+    gap: 1.5rem;
+  }
+  /* 1 column on small screens, 2 on medium, 3 on large */
+  @media (min-width: 600px) {
+    .grid { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (min-width: 900px) {
+    .grid { grid-template-columns: repeat(3, 1fr); }
+  }
+  .card {
+    background: var(--card-bg);
+    border-radius: 8px;
+    padding: 1rem;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+  }
+  .card h2 {
+    margin: 0 0 1rem 0;
+    font-size: 1.1rem;
+    text-align: center;
+  }
+  canvas {
+    width: 100% !important;
+    max-height: 260px;
+  }
+</style>
 </head>
 <body>
-  <h1>Agentic AI Performance 数据看板 <small style="font-size:0.7rem;">(共读取记录: 5000)</small></h1>
-  <!-- Chart 1 -->
-  <div class="card">
-    <h2>多模态支持的智能体类型占比 (Top 3)</h2>
-    <canvas id="agentChart"></canvas>
+  <div class="container">
+    <h1>Agentic AI Performance Dashboard 2025</h1>
+    <p class="subtitle">数据总记录数（实际处理）: <strong>5000</strong></p>
+
+    <div class="grid">
+      <!-- Card 1: Agent Type Multimodal Proportion -->
+      <div class="card">
+        <h2>支持多模态比例 Top 3 智能体类型</h2>
+        <canvas id="agentChart"></canvas>
+      </div>
+
+      <!-- Card 2: Model Architecture Multimodal Proportion -->
+      <div class="card">
+        <h2>支持多模态比例 Top 3 大模型架构</h2>
+        <canvas id="archChart"></canvas>
+      </div>
+
+      <!-- Card 3: Median Bias Score by Task Category -->
+      <div class="card">
+        <h2>Bias Detection 中位数 Top 3 任务类型</h2>
+        <canvas id="biasChart"></canvas>
+      </div>
+    </div>
   </div>
-  <!-- Chart 2 -->
-  <div class="card">
-    <h2>多模态支持的大模型架构占比 (Top 3)</h2>
-    <canvas id="modelChart"></canvas>
-  </div>
-  <!-- Chart 3 -->
-  <div class="card">
-    <h2>公正性最高的任务类别 (平均 bias detection 分数)</h2>
-    <canvas id="biasChart"></canvas>
-  </div>
 
-  <script>
-    // 数据
-    const agentLabels = ["Customer Service", "Research Assistant", "Content Creator"];
-    const agentData = [7.84, 7.03, 7.03];
+<script>
+  // Dataset values embedded directly
+  const agentLabels = ["Customer Service", "Content Creator", "Social Media Manager"];
+  const agentData  = [17.06, 16.88, 16.51]; // percentage values
 
-    const modelLabels = ["Mixtral-8x7B", "InstructGPT", "Falcon-180B"];
-    const modelData = [12.43, 11.08, 10.95];
+  const archLabels = ["Mixtral-8x7B", "Falcon-180B", "CodeT5+"];
+  const archData  = [18.33, 15.85, 15.42];
 
-    const biasLabels = ["Creative Writing", "Learning & Adaptation", "Problem Solving"];
-    const biasData = [0.7831, 0.7778, 0.7769];
+  const biasLabels = ["Creative Writing", "Problem Solving", "Learning & Adaptation"];
+  const biasData  = [0.7820, 0.7806, 0.77795];
 
-    const accentColors = [
-      getComputedStyle(document.documentElement).getPropertyValue('--accent1'),
-      getComputedStyle(document.documentElement).getPropertyValue('--accent2'),
-      getComputedStyle(document.documentElement).getPropertyValue('--accent3')
-    ];
-
-    // 生成图表函数
-    function createChart(ctx, type, labels, data, title) {
-      new Chart(ctx, {
-        type: type,
-        data: {
-          labels: labels,
-          datasets: [{
-            data: data,
-            backgroundColor: accentColors,
-            borderColor: '#dee2e6',
-            borderWidth: 1,
-          }]
-        },
-        options: {
-          plugins: {
-            legend: {
-              position: 'bottom',
-            },
-            title: {
-              display: false,
-              text: title
-            }
-          },
-          responsive: true,
-          maintainAspectRatio: false,
+  const barOptions = {
+    indexAxis: 'y',
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: { display: false },
+      tooltip: {
+        callbacks: {
+          label: ctx => ctx.parsed.x + (ctx.dataset.label.includes('%') ? '%' : '')
         }
-      });
+      }
+    },
+    scales: {
+      x: {
+        beginAtZero: true,
+        grid: { display: false }
+      },
+      y: { grid: { display: false } }
     }
+  };
 
-    // 创建图表
-    createChart(document.getElementById('agentChart'), 'pie', agentLabels, agentData);
-    createChart(document.getElementById('modelChart'), 'doughnut', modelLabels, modelData);
-    createChart(document.getElementById('biasChart'), 'bar', biasLabels, biasData);
-  </script>
+  // Agent Type Chart
+  new Chart(document.getElementById('agentChart'), {
+    type: 'bar',
+    data: {
+      labels: agentLabels,
+      datasets: [{
+        label: '% 支持多模态',
+        data: agentData,
+        backgroundColor: ['var(--accent1)', 'var(--accent2)', 'var(--accent3)']
+      }]
+    },
+    options: barOptions
+  });
+
+  // Architecture Chart
+  new Chart(document.getElementById('archChart'), {
+    type: 'bar',
+    data: {
+      labels: archLabels,
+      datasets: [{
+        label: '% 支持多模态',
+        data: archData,
+        backgroundColor: ['var(--accent1)', 'var(--accent2)', 'var(--accent3)']
+      }]
+    },
+    options: barOptions
+  });
+
+  // Bias Score Chart
+  new Chart(document.getElementById('biasChart'), {
+    type: 'bar',
+    data: {
+      labels: biasLabels,
+      datasets: [{
+        label: '中位数得分',
+        data: biasData,
+        backgroundColor: ['var(--accent1)', 'var(--accent2)', 'var(--accent3)']
+      }]
+    },
+    options: barOptions
+  });
+</script>
 </body>
 </html>
