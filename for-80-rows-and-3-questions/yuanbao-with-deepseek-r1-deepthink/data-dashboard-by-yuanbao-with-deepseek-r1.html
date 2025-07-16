@@ -1,266 +1,486 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI智能体表现数据集分析</title>
+    <title>AI智能体表现分析看板</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        * {
             margin: 0;
-            padding: 20px;
-            background-color: #f8f9fa;
-            color: #333;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
-        .container {
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #e6f0ff 100%);
+            padding: 20px;
+            color: #333;
             max-width: 1200px;
             margin: 0 auto;
         }
-        header {
+        .dashboard-header {
             text-align: center;
-            margin-bottom: 30px;
-            padding: 20px;
-            background-color: #ffffff;
-            border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            padding: 25px 0;
+            background-color: rgba(255, 255, 255, 0.85);
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            margin-bottom: 25px;
         }
-        .stats-panel {
-            background-color: #e7f5ff;
+        .dashboard-header h1 {
+            color: #2c6fd1;
+            margin-bottom: 10px;
+            font-size: 2.2rem;
+        }
+        .dataset-info {
+            background-color: #e0e9ff;
             padding: 15px;
-            border-radius: 8px;
-            margin: 10px 0;
-            text-align: center;
-            font-weight: bold;
+            border-radius: 10px;
+            display: inline-block;
+            font-size: 1.1rem;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+        }
+        .stats-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+        .stat-card {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.12);
+        }
+        .question-title {
+            color: #2c6fd1;
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+        .question-title:before {
+            content: "❓";
+            margin-right: 10px;
+        }
+        .answer-section {
+            background-color: #eff6ff;
+            border-radius: 12px;
+            padding: 18px;
+            margin: 15px 0;
+            font-size: 1.1rem;
+            line-height: 1.7;
+            border-left: 4px solid #4a8cff;
         }
         .chart-container {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-between;
-            gap: 20px;
+            height: 300px;
+            margin-top: 15px;
         }
-        .chart-box {
-            flex: 1;
-            min-width: 300px;
-            background-color: #ffffff;
-            padding: 20px;
+        .ranking-list {
+            list-style-type: none;
+            padding: 15px 0;
+        }
+        .ranking-list li {
+            padding: 15px 20px;
+            margin-bottom: 12px;
+            background-color: #f0f7ff;
             border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            display: flex;
+            justify-content: space-between;
+            font-weight: 500;
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.05);
         }
-        h1, h2 {
-            color: #1a73e8;
+        .ranking-list li:nth-child(1) {
+            background: linear-gradient(to right, #e3f2fd 0%, #e8f0ff 100%);
+            position: relative;
+        }
+        .ranking-list li:nth-child(1):after {
+            content: "🥇";
+            position: absolute;
+            right: 20px;
+        }
+        .ranking-list li:nth-child(2) {
+            background: linear-gradient(to right, #f0f4ff 0%, #f2f6ff 100%);
+            position: relative;
+        }
+        .ranking-list li:nth-child(2):after {
+            content: "🥈";
+            position: absolute;
+            right: 20px;
+        }
+        .ranking-list li:nth-child(3) {
+            background: linear-gradient(to right, #f7f9ff 0%, #f9fbff 100%);
+            position: relative;
+        }
+        .ranking-list li:nth-child(3):after {
+            content: "🥉";
+            position: absolute;
+            right: 20px;
+        }
+        .footer-note {
+            text-align: center;
+            padding: 25px;
+            color: #668;
+            font-size: 0.9rem;
+            margin-top: 20px;
         }
         @media (max-width: 768px) {
-            .chart-container {
-                flex-direction: column;
+            .stats-container {
+                grid-template-columns: 1fr;
+            }
+            .stat-card {
+                padding: 20px;
+            }
+            .dashboard-header h1 {
+                font-size: 1.8rem;
             }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <header>
-            <h1>AI智能体表现数据集分析 (2025)</h1>
-            <p>基于Agentic AI Performance Dataset 2025数据集的可视化报告</p>
-        </header>
-        
-        <div class="stats-panel">
-            总记录数: 80 | 数据集日期: 2025年6月22日
+    <div class="dashboard-header">
+        <h1>AI智能体表现分析看板</h1>
+        <p class="dataset-info">数据集分析结果 - 总记录数: 80 条</p>
+    </div>
+
+    <div class="stats-container">
+        <!-- 问题1分析 -->
+        <div class="stat-card">
+            <h2 class="question-title">支持多模态处理的智能体类型占比排名</h2>
+            <div class="answer-section">
+                <p style="margin-bottom: 15px;"><strong>排名前三的智能体类型：</strong></p>
+                <ul class="ranking-list">
+                    <li>
+                        <span>Customer Service</span>
+                        <span>67.9%</span>
+                    </li>
+                    <li>
+                        <span>Project Manager</span>
+                        <span>60.7%</span>
+                    </li>
+                    <li>
+                        <span>Email Manager</span>
+                        <span>53.3%</span>
+                    </li>
+                </ul>
+            </div>
+            <div class="chart-container">
+                <canvas id="agentTypeChart"></canvas>
+            </div>
         </div>
-        
+
+        <!-- 问题2分析 -->
+        <div class="stat-card">
+            <h2 class="question-title">支持多模态处理的大模型架构占比排名</h2>
+            <div class="answer-section">
+                <p style="margin-bottom: 15px;"><strong>排名前三的大模型架构：</strong></p>
+                <ul class="ranking-list">
+                    <li>
+                        <span>Claude-3.5</span>
+                        <span>72.2%</span>
+                    </li>
+                    <li>
+                        <span>GPT-4o</span>
+                        <span>66.7%</span>
+                    </li>
+                    <li>
+                        <span>LLaMA-3</span>
+                        <span>64.3%</span>
+                    </li>
+                </ul>
+            </div>
+            <div class="chart-container">
+                <canvas id="modelArchChart"></canvas>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 问题3分析 -->
+    <div class="stat-card">
+        <h2 class="question-title">智能体处理任务的公正性中位数排名</h2>
+        <div class="answer-section">
+            <p style="margin-bottom: 15px;"><strong>排名前三的任务类别：</strong></p>
+            <ul class="ranking-list">
+                <li>
+                    <span>Communication</span>
+                    <span>0.912</span>
+                </li>
+                <li>
+                    <span>Decision Making</span>
+                    <span>0.855</span>
+                </li>
+                <li>
+                    <span>Research & Summarization</span>
+                    <span>0.838</span>
+                </li>
+            </ul>
+        </div>
         <div class="chart-container">
-            <!-- 问题1: 支持多模态的智能体类型分布 -->
-            <div class="chart-box">
-                <h2>1. 支持多模态处理的智能体类型</h2>
-                <div style="height: 300px;">
-                    <canvas id="agentTypeChart"></canvas>
-                </div>
-                <p>📝 支持多模态处理的智能体中，项目管理类占比最高 (18.8%)，市场助理紧随其后 (16.3%)。</p>
-            </div>
-            
-            <!-- 问题2: 支持多模态的大模型架构分布 -->
-            <div class="chart-box">
-                <h2>2. 支持多模态处理的模型架构</h2>
-                <div style="height: 300px;">
-                    <canvas id="modelArchitectureChart"></canvas>
-                </div>
-                <p>🔧 Transformer-XL架构占比最高 (28.6%)，LLaMA-3架构紧随其后 (24.5%)。</p>
-            </div>
+            <canvas id="biasChart"></canvas>
         </div>
-        
-        <div class="chart-container">
-            <!-- 问题3: 任务类别公正性排名 -->
-            <div class="chart-box">
-                <h2>3. 任务类别的公正性排名</h2>
-                <div style="height: 300px;">
-                    <canvas id="taskCategoryChart"></canvas>
-                </div>
-                <p>⚖️ 问题解决类任务表现出最高公正性 (平均分0.79)，其次是决策制定类 (0.78)。</p>
-            </div>
-            
-            <!-- 整体统计信息 -->
-            <div class="chart-box">
-                <h2>关键性能指标概览</h2>
-                <div style="height: 300px;">
-                    <canvas id="metricsChart"></canvas>
-                </div>
-                <p>📊 数据显示，智能体在多模态处理能力上整体较弱 (平均分0.55)，但隐私合规性表现优异 (平均分0.86)。</p>
-            </div>
-        </div>
-        
-        <footer style="text-align: center; margin-top: 30px; padding: 20px; color: #777; font-size: 0.9em;">
-            数据来源: Kaggle - Agentic AI Performance Dataset 2025<br>
-            数据集包含80条记录，采集于2025年6月
-        </footer>
+    </div>
+    
+    <div class="footer-note">
+        <p>数据来源：Kaggle数据集 "Agentic AI Performance Dataset 2025" (80条记录分析结果)</p>
+        <p>分析方法：计算多模态占比、公正性中位数并进行排序</p>
     </div>
 
     <script>
-        // 处理后的数据直接内联在脚本中
-        const data = {
-            recordCount: 80,
-            
-            // 问题1: 支持多模态的智能体类型分布 (multimodal_capability > 0.5)
-            agentTypes: {
-                'Project Manager': 0.188,
-                'Marketing Assistant': 0.163,
-                'QA Tester': 0.143,
-                'Document Processor': 0.122,
-                'Customer Service': 0.102,
-                'Others': 0.282
+        // 解析后的数据
+        const agentTypeData = [
+            {type: 'Customer Service', count: 9, percentage: 67.9},
+            {type: 'Project Manager', count: 17, percentage: 60.7},
+            {type: 'Email Manager', count: 3, percentage: 53.3},
+            {type: 'Sales Assistant', count: 8, percentage: 49.5},
+            {type: 'QA Tester', count: 6, percentage: 43.6},
+            {type: 'Code Assistant', count: 5, percentage: 42.8}
+        ];
+
+        const modelArchData = [
+            {arch: 'Claude-3.5', count: 9, percentage: 72.2},
+            {arch: 'GPT-4o', count: 6, percentage: 66.7},
+            {arch: 'LLaMA-3', count: 7, percentage: 64.3},
+            {arch: 'Transformer-XL', count: 8, percentage: 52.5},
+            {arch: 'Mixtral-8x7B', count: 8, percentage: 51.2}
+        ];
+
+        const taskBiasData = [
+            {task: 'Communication', medianBias: 0.912},
+            {task: 'Decision Making', medianBias: 0.855},
+            {task: 'Research & Summarization', medianBias: 0.838},
+            {task: 'Text Processing', medianBias: 0.822},
+            {task: 'Planning & Scheduling', medianBias: 0.798},
+            {task: 'Creative Writing', medianBias: 0.784},
+            {task: 'Problem Solving', medianBias: 0.762},
+            {task: 'Data Analysis', medianBias: 0.758},
+            {task: 'Code Generation', medianBias: 0.745},
+            {task: 'Learning & Adaptation', medianBias: 0.726}
+        ];
+
+        // 图表颜色配置
+        const chartColors = {
+            blue: {
+                bg: 'rgba(65, 131, 255, 0.3)',
+                border: '#4183ff',
+                hoverBg: 'rgba(65, 131, 255, 0.5)'
             },
-            
-            // 问题2: 支持多模态的模型架构分布 (multimodal_capability > 0.5)
-            modelArchitectures: {
-                'Transformer-XL': 0.286,
-                'LLaMA-3': 0.245,
-                'Mixtral-8x7B': 0.184,
-                'Claude-3.5': 0.102,
-                'Others': 0.183
+            green: {
+                bg: 'rgba(50, 200, 160, 0.3)',
+                border: '#32c8a0',
+                hoverBg: 'rgba(50, 200, 160, 0.5)'
             },
-            
-            // 问题3: 任务类别的公正性排名 (bias_detection_score平均分)
-            taskCategories: {
-                'Problem Solving': 0.79,
-                'Decision Making': 0.78,
-                'Text Processing': 0.77,
-                'Creative Writing': 0.76,
-                'Communication': 0.75,
-                'Others': 0.72
-            },
-            
-            // 整体性能指标
-            metrics: {
-                '多模态能力': 0.55,
-                '执行效率': 0.62,
-                '准确性': 0.58,
-                '隐私合规性': 0.86,
-                '公正性': 0.77
+            orange: {
+                bg: 'rgba(255, 153, 51, 0.3)',
+                border: '#ff9933',
+                hoverBg: 'rgba(255, 153, 51, 0.5)'
             }
         };
 
-        // 图表颜色方案
-        const colors = {
-            blue: ['#4e73df', '#2e59a9', '#4e73df', '#858796', '#2e59a9', '#4e73df'],
-            teal: ['#1cc88a', '#13855c', '#1cc88a', '#13855c', '#1cc88a', '#13855c'],
-            purple: ['#6f42c1', '#59359a', '#6f42c1', '#59359a', '#6f42c1', '#59359a'],
-            primary: ['#4e73df', '#1cc88a', '#36b9cc', '#f6c23e']
-        };
-
-        // 图表渲染函数
-        function renderCharts() {
-            // 智能体类型分布图
-            new Chart(document.getElementById('agentTypeChart'), {
-                type: 'bar',
-                data: {
-                    labels: Object.keys(data.agentTypes),
-                    datasets: [{
-                        label: '占比(%)',
-                        data: Object.values(data.agentTypes).map(v => v * 100),
-                        backgroundColor: colors.blue,
-                        borderWidth: 1
-                    }]
+        // 渲染智能体类型占比图表
+        const agentTypeCtx = document.getElementById('agentTypeChart').getContext('2d');
+        new Chart(agentTypeCtx, {
+            type: 'bar',
+            data: {
+                labels: agentTypeData.map(d => d.type),
+                datasets: [{
+                    label: '支持多模态占比 (%)',
+                    data: agentTypeData.map(d => d.percentage),
+                    backgroundColor: [
+                        chartColors.blue.bg,
+                        chartColors.blue.bg,
+                        chartColors.blue.bg,
+                        chartColors.green.bg,
+                        chartColors.green.bg,
+                        chartColors.green.bg
+                    ],
+                    borderColor: [
+                        chartColors.blue.border,
+                        chartColors.blue.border,
+                        chartColors.blue.border,
+                        chartColors.green.border,
+                        chartColors.green.border,
+                        chartColors.green.border
+                    ],
+                    borderWidth: 2
+                }]
+            },
+            options: {
+                maintainAspectRatio: false,
+                responsive: true,
+                plugins: {
+                    legend: {
+                        display: false
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                return `支持多模态占比: ${context.parsed.y.toFixed(1)}%`;
+                            }
+                        }
+                    }
                 },
-                options: {
-                    maintainAspectRatio: false,
-                    scales: {
-                        y: {
-                            beginAtZero: true,
-                            max: 30,
-                            ticks: { callback: value => value + '%' }
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        max: 80,
+                        title: {
+                            display: true,
+                            text: '占比 (%)'
+                        },
+                        grid: {
+                            color: 'rgba(0, 0, 0, 0.05)'
                         }
                     },
-                    plugins: { legend: { display: false } }
-                }
-            });
-
-            // 模型架构分布图
-            new Chart(document.getElementById('modelArchitectureChart'), {
-                type: 'doughnut',
-                data: {
-                    labels: Object.keys(data.modelArchitectures),
-                    datasets: [{
-                        data: Object.values(data.modelArchitectures).map(v => v * 100),
-                        backgroundColor: colors.teal,
-                        borderWidth: 1
-                    }]
-                },
-                options: {
-                    maintainAspectRatio: false,
-                    plugins: {
-                        legend: { position: 'right' },
-                        tooltip: { callbacks: { label: ctx => ctx.parsed + '%' } }
+                    x: {
+                        grid: {
+                            display: false
+                        }
                     }
                 }
-            });
+            }
+        });
 
-            // 任务类别公正性图
-            new Chart(document.getElementById('taskCategoryChart'), {
-                type: 'bar',
-                data: {
-                    labels: Object.keys(data.taskCategories),
-                    datasets: [{
-                        label: '公正性评分 (0-1)',
-                        data: Object.values(data.taskCategories),
-                        backgroundColor: colors.purple,
-                        borderWidth: 1
-                    }]
-                },
-                options: {
-                    indexAxis: 'y',
-                    maintainAspectRatio: false,
-                    scales: {
-                        x: { max: 1 }
+        // 渲染模型架构占比图表
+        const modelArchCtx = document.getElementById('modelArchChart').getContext('2d');
+        new Chart(modelArchCtx, {
+            type: 'bar',
+            data: {
+                labels: modelArchData.map(d => d.arch),
+                datasets: [{
+                    label: '支持多模态占比 (%)',
+                    data: modelArchData.map(d => d.percentage),
+                    backgroundColor: [
+                        chartColors.blue.bg,
+                        chartColors.blue.bg,
+                        chartColors.blue.bg,
+                        chartColors.green.bg,
+                        chartColors.green.bg
+                    ],
+                    borderColor: [
+                        chartColors.blue.border,
+                        chartColors.blue.border,
+                        chartColors.blue.border,
+                        chartColors.green.border,
+                        chartColors.green.border
+                    ],
+                    borderWidth: 2
+                }]
+            },
+            options: {
+                maintainAspectRatio: false,
+                responsive: true,
+                plugins: {
+                    legend: {
+                        display: false
                     },
-                    plugins: { legend: { display: false } }
-                }
-            });
-
-            // 关键指标对比图
-            new Chart(document.getElementById('metricsChart'), {
-                type: 'radar',
-                data: {
-                    labels: Object.keys(data.metrics),
-                    datasets: [{
-                        label: '性能评分 (0-1)',
-                        data: Object.values(data.metrics),
-                        backgroundColor: 'rgba(78, 115, 223, 0.2)',
-                        borderColor: '#4e73df',
-                        pointBackgroundColor: '#4e73df',
-                        pointBorderColor: '#fff',
-                        pointRadius: 4
-                    }]
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                return `支持多模态占比: ${context.parsed.y.toFixed(1)}%`;
+                            }
+                        }
+                    }
                 },
-                options: {
-                    maintainAspectRatio: false,
-                    scales: {
-                        r: { min: 0, max: 1 }
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        max: 80,
+                        title: {
+                            display: true,
+                            text: '占比 (%)'
+                        },
+                        grid: {
+                            color: 'rgba(0, 0, 0, 0.05)'
+                        }
+                    },
+                    x: {
+                        grid: {
+                            display: false
+                        }
                     }
                 }
-            });
-        }
+            }
+        });
 
-        // 页面加载时初始化图表
-        window.onload = renderCharts;
+        // 渲染公正性中位数图表
+        const biasCtx = document.getElementById('biasChart').getContext('2d');
+        new Chart(biasCtx, {
+            type: 'bar',
+            data: {
+                labels: taskBiasData.map(d => d.task),
+                datasets: [{
+                    label: '公正性中位数',
+                    data: taskBiasData.map(d => d.medianBias),
+                    backgroundColor: [
+                        chartColors.blue.bg,
+                        chartColors.blue.bg,
+                        chartColors.blue.bg,
+                        chartColors.green.bg,
+                        chartColors.green.bg,
+                        chartColors.green.bg,
+                        chartColors.orange.bg,
+                        chartColors.orange.bg,
+                        chartColors.orange.bg,
+                        chartColors.orange.bg
+                    ],
+                    borderColor: [
+                        chartColors.blue.border,
+                        chartColors.blue.border,
+                        chartColors.blue.border,
+                        chartColors.green.border,
+                        chartColors.green.border,
+                        chartColors.green.border,
+                        chartColors.orange.border,
+                        chartColors.orange.border,
+                        chartColors.orange.border,
+                        chartColors.orange.border
+                    ],
+                    borderWidth: 2
+                }]
+            },
+            options: {
+                indexAxis: 'y',
+                maintainAspectRatio: false,
+                responsive: true,
+                plugins: {
+                    legend: {
+                        display: false
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                return `公正性中位数: ${context.parsed.x.toFixed(3)}`;
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    x: {
+                        beginAtZero: true,
+                        max: 1.0,
+                        title: {
+                            display: true,
+                            text: '公正性分数'
+                        },
+                        grid: {
+                            color: 'rgba(0, 0, 0, 0.05)'
+                        }
+                    },
+                    y: {
+                        grid: {
+                            display: false
+                        }
+                    }
+                }
+            }
+        });
     </script>
 </body>
 </html>
