@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,7 +7,7 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
             background-color: #f8f9fa;
             color: #212529;
             margin: 0;
@@ -19,184 +19,141 @@
             background-color: #ffffff;
             padding: 20px;
             border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
         h1, h2 {
-            text-align: center;
             color: #343a40;
-        }
-        .record-count {
             text-align: center;
-            font-size: 1.1em;
-            color: #6c757d;
+        }
+        .summary {
+            text-align: center;
+            font-size: 1.2em;
             margin-bottom: 30px;
+            padding: 10px;
+            background-color: #e9ecef;
+            border-radius: 5px;
         }
         .chart-container {
-            position: relative;
-            margin: auto;
             margin-bottom: 40px;
-            padding: 20px;
-            border: 1px solid #dee2e6;
-            border-radius: 8px;
-            background-color: #fff;
         }
-        .grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 20px;
+        canvas {
+            width: 100% !important;
+            height: auto !important;
         }
-        @media (min-width: 768px) {
-            .grid {
-                grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-            }
+         footer {
+            text-align: center;
+            margin-top: 30px;
+            font-size: 0.9em;
+            color: #6c757d;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>Agentic AI Performance Dashboard</h1>
-        <p class="record-count">Displaying analysis for 455 records from the dataset.</p>
-
-        <div class="grid">
-            <div class="chart-container">
-                <h2>Top 3 Agent Types with Multimodal Capability</h2>
-                <canvas id="agentTypeChart"></canvas>
-            </div>
-            <div class="chart-container">
-                <h2>Top 3 Model Architectures with Multimodal Capability</h2>
-                <canvas id="modelArchitectureChart"></canvas>
-            </div>
-            <div class="chart-container">
-                <h2>Top 3 Task Categories by Bias Detection Score</h2>
-                <canvas id="biasDetectionChart"></canvas>
-            </div>
+        <h1>AI智能体表现数据集分析看板</h1>
+        <div class="summary">
+            <p>已处理数据集总记录数: <strong>5000</strong></p>
         </div>
+
+        <div class="chart-container">
+            <h2>问题一：不同智能体类型中，支持多模态处理的占比</h2>
+            <p style="text-align: center;">从大到小排名前三的智能体类型</p>
+            <canvas id="agentTypeChart"></canvas>
+        </div>
+
+        <div class="chart-container">
+            <h2>问题二：不同大模型架构中，支持多模态处理的占比</h2>
+            <p style="text-align: center;">从大到小排名前三的大模型架构</p>
+            <canvas id="modelArchChart"></canvas>
+        </div>
+
+        <div class="chart-container">
+            <h2>问题三：不同任务类型下，智能体表现的公正性（中位数）</h2>
+             <p style="text-align: center;">从高到低排名前三的任务类型</p>
+            <canvas id="biasDetectionChart"></canvas>
+        </div>
+         <footer>
+            <p>该看板由AI生成，数据源于 Kaggle 数据集 "Agentic AI Performance Dataset 2025"。</p>
+        </footer>
     </div>
 
     <script>
-        // Data derived from the first 455 rows of agentic_ai_performance_dataset_20250622.csv
-        const q1Data = {
-            labels: ['Data Analyst', 'HR Recruiter', 'Sales Assistant'],
-            proportions: [11.4, 9.1, 9.1]
+        const formatPercent = (value) => (value * 100).toFixed(2) + '%';
+
+        // Data for Chart 1: Top 3 Agent Types by Multimodal Capability Ratio
+        const agentTypeData = {
+            labels: ['Customer Service', 'Content Creator', 'Social Media Manager'],
+            datasets: [{
+                label: '支持多模态处理的占比',
+                data: [0.170588, 0.168831, 0.165079],
+                backgroundColor: 'rgba(75, 192, 192, 0.6)',
+                borderColor: 'rgba(75, 192, 192, 1)',
+                borderWidth: 1
+            }]
         };
 
-        const q2Data = {
-            labels: ['GPT-4o', 'CodeT5+', 'Falcon-180B'],
-            proportions: [22.7, 15.9, 13.6]
+        // Data for Chart 2: Top 3 Model Architectures by Multimodal Capability Ratio
+        const modelArchData = {
+            labels: ['Mixtral-8x7B', 'Falcon-180B', 'CodeT5+'],
+            datasets: [{
+                label: '支持多模态处理的占比',
+                data: [0.183267, 0.158513, 0.154176],
+                backgroundColor: 'rgba(54, 162, 235, 0.6)',
+                borderColor: 'rgba(54, 162, 235, 1)',
+                borderWidth: 1
+            }]
+        };
+
+        // Data for Chart 3: Top 3 Task Categories by Median Bias Detection Score
+        const biasDetectionData = {
+            labels: ['Creative Writing', 'Problem Solving', 'Learning & Adaptation'],
+            datasets: [{
+                label: '公正性中位数',
+                data: [0.7820, 0.7806, 0.77795],
+                backgroundColor: 'rgba(255, 159, 64, 0.6)',
+                borderColor: 'rgba(255, 159, 64, 1)',
+                borderWidth: 1
+            }]
         };
         
-        const q3Data = {
-            labels: ['Decision Making', 'Planning & Scheduling', 'Communication'],
-            scores: [0.816, 0.798, 0.793]
-        };
-
-        const chartColors = {
-            backgroundColor: [
-                'rgba(173, 216, 230, 0.5)', // Light Blue
-                'rgba(144, 238, 144, 0.5)', // Light Green
-                'rgba(255, 228, 181, 0.5)', // Moccasin (Light Yellow/Orange)
-            ],
-            borderColor: [
-                'rgba(173, 216, 230, 1)',
-                'rgba(144, 238, 144, 1)',
-                'rgba(255, 228, 181, 1)',
-            ]
-        };
-
-        // Chart 1: Agent Type Proportions
-        new Chart(document.getElementById('agentTypeChart'), {
-            type: 'bar',
-            data: {
-                labels: q1Data.labels,
-                datasets: [{
-                    label: 'Proportion of Multimodal Agents (%)',
-                    data: q1Data.proportions,
-                    backgroundColor: chartColors.backgroundColor,
-                    borderColor: chartColors.borderColor,
-                    borderWidth: 1
-                }]
+        const chartOptions = (isPercentage = false) => ({
+            indexAxis: 'y',
+            scales: {
+                x: {
+                    beginAtZero: true,
+                    ticks: {
+                        callback: isPercentage ? function(value) { return formatPercent(value); } : undefined
+                    }
+                }
             },
-            options: {
-                indexAxis: 'y',
-                scales: {
-                    x: {
-                        beginAtZero: true,
-                        ticks: {
-                            callback: function(value) {
-                                return value + "%"
+            plugins: {
+                legend: {
+                    display: false
+                },
+                tooltip: {
+                    callbacks: {
+                        label: function(context) {
+                            let label = context.dataset.label || '';
+                            if (label) {
+                                label += ': ';
                             }
+                            let value = context.raw;
+                            if (isPercentage) {
+                                label += formatPercent(value);
+                            } else {
+                                label += value.toFixed(4);
+                            }
+                            return label;
                         }
                     }
-                },
-                plugins: {
-                    legend: {
-                        display: false
-                    }
                 }
             }
         });
 
-        // Chart 2: Model Architecture Proportions
-        new Chart(document.getElementById('modelArchitectureChart'), {
-            type: 'bar',
-            data: {
-                labels: q2Data.labels,
-                datasets: [{
-                    label: 'Proportion of Multimodal Agents (%)',
-                    data: q2Data.proportions,
-                    backgroundColor: chartColors.backgroundColor,
-                    borderColor: chartColors.borderColor,
-                    borderWidth: 1
-                }]
-            },
-            options: {
-                indexAxis: 'y',
-                scales: {
-                     x: {
-                        beginAtZero: true,
-                        ticks: {
-                            callback: function(value) {
-                                return value + "%"
-                            }
-                        }
-                    }
-                },
-                plugins: {
-                    legend: {
-                        display: false
-                    }
-                }
-            }
-        });
-
-        // Chart 3: Bias Detection Score
-        new Chart(document.getElementById('biasDetectionChart'), {
-            type: 'bar',
-            data: {
-                labels: q3Data.labels,
-                datasets: [{
-                    label: 'Average Bias Detection Score',
-                    data: q3Data.scores,
-                    backgroundColor: chartColors.backgroundColor,
-                    borderColor: chartColors.borderColor,
-                    borderWidth: 1
-                }]
-            },
-            options: {
-                indexAxis: 'y',
-                scales: {
-                    x: {
-                        beginAtZero: true,
-                        max: 1.0
-                    }
-                },
-                plugins: {
-                    legend: {
-                        display: false
-                    }
-                }
-            }
-        });
+        // Create charts
+        new Chart(document.getElementById('agentTypeChart'), { type: 'bar', data: agentTypeData, options: chartOptions(true) });
+        new Chart(document.getElementById('modelArchChart'), { type: 'bar', data: modelArchData, options: chartOptions(true) });
+        new Chart(document.getElementById('biasDetectionChart'), { type: 'bar', data: biasDetectionData, options: chartOptions(false) });
     </script>
 </body>
 </html> 
