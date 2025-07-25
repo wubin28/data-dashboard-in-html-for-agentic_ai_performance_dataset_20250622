@@ -32,4 +32,6 @@
 
 不过别慌，有个好消息！你可以找个靠谱点的AI来帮你查查数据对不对，还能让它给你改正错误。我就是用Cursor或Claude桌面版配上Claude Sonnet 4大模型发现这些问题的。想学怎么用AI验证数据看板？翻翻我写的《氛围编程：AI编程像聊天一样简单》第3.8节就知道啦！
 
+![f-08-vibe-coding-in-action-cover-large.png](f-08-vibe-coding-in-action-cover-large.png)
+
 你有啥好招能验证数据看板准不准确？快到留言区分享一下呗～
