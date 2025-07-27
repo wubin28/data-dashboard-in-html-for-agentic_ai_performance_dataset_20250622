@@ -1,0 +1,206 @@
+{
+  "data_summary": {
+    "total_records": 80,
+    "columns": [
+      "agent_id",
+      "agent_type",
+      "model_architecture",
+      "deployment_environment",
+      "task_category",
+      "task_complexity",
+      "autonomy_level",
+      "success_rate",
+      "accuracy_score",
+      "efficiency_score",
+      "execution_time_seconds",
+      "response_latency_ms",
+      "memory_usage_mb",
+      "cpu_usage_percent",
+      "cost_per_task_cents",
+      "human_intervention_required",
+      "error_recovery_rate",
+      "multimodal_capability",
+      "edge_compatibility",
+      "privacy_compliance_score",
+      "bias_detection_score",
+      "timestamp",
+      "data_quality_score",
+      "performance_index",
+      "cost_efficiency_ratio",
+      "autonomous_capability_score"
+    ],
+    "data_types": {
+      "agent_id": "object",
+      "agent_type": "object",
+      "model_architecture": "object",
+      "deployment_environment": "object",
+      "task_category": "object",
+      "task_complexity": "int64",
+      "autonomy_level": "int64",
+      "success_rate": "float64",
+      "accuracy_score": "float64",
+      "efficiency_score": "float64",
+      "execution_time_seconds": "float64",
+      "response_latency_ms": "float64",
+      "memory_usage_mb": "float64",
+      "cpu_usage_percent": "float64",
+      "cost_per_task_cents": "float64",
+      "human_intervention_required": "bool",
+      "error_recovery_rate": "float64",
+      "multimodal_capability": "bool",
+      "edge_compatibility": "bool",
+      "privacy_compliance_score": "float64",
+      "bias_detection_score": "float64",
+      "timestamp": "object",
+      "data_quality_score": "float64",
+      "performance_index": "float64",
+      "cost_efficiency_ratio": "float64",
+      "autonomous_capability_score": "float64"
+    }
+  },
+  "question_1": {
+    "correct_results": [
+      [
+        "Research Assistant",
+        60.0
+      ],
+      [
+        "Document Processor",
+        33.33333333333333
+      ],
+      [
+        "Sales Assistant",
+        28.57142857142857
+      ]
+    ],
+    "html_results": [
+      [
+        "Code Assistant",
+        66.67
+      ],
+      [
+        "Document Processor",
+        50.0
+      ],
+      [
+        "Content Creator",
+        42.86
+      ]
+    ]
+  },
+  "question_2": {
+    "correct_results": [
+      [
+        "GPT-4o",
+        37.5
+      ],
+      [
+        "CodeT5+",
+        33.33333333333333
+      ],
+      [
+        "Transformer-XL",
+        20.0
+      ]
+    ],
+    "html_results": [
+      [
+        "CodeT5+",
+        50.0
+      ],
+      [
+        "GPT-4o",
+        37.5
+      ],
+      [
+        "Transformer-XL",
+        22.22
+      ]
+    ]
+  },
+  "question_3": {
+    "correct_results": [
+      [
+        "Communication",
+        0.8214
+      ],
+      [
+        "Research & Summarization",
+        0.78535
+      ],
+      [
+        "Decision Making",
+        0.7816
+      ]
+    ],
+    "html_results": [
+      [
+        "Communication",
+        0.8061
+      ],
+      [
+        "Planning & Scheduling",
+        0.7657
+      ],
+      [
+        "Text Processing",
+        0.7463
+      ]
+    ]
+  },
+  "other_statistics": {
+    "total_records": 80,
+    "multimodal_count": 12,
+    "edge_compatible_count": 47,
+    "agent_type_dist": {
+      "Project Manager": 10,
+      "Sales Assistant": 7,
+      "Customer Service": 6,
+      "Document Processor": 6,
+      "Task Planner": 6,
+      "Data Analyst": 6,
+      "Social Media Manager": 6,
+      "QA Tester": 5,
+      "Code Assistant": 5,
+      "Content Creator": 5,
+      "Research Assistant": 5,
+      "HR Recruiter": 4,
+      "Email Manager": 3,
+      "Financial Advisor": 3,
+      "Marketing Assistant": 2,
+      "Translation Agent": 1
+    },
+    "model_arch_dist": {
+      "Transformer-XL": 10,
+      "InstructGPT": 10,
+      "Mixtral-8x7B": 9,
+      "CodeT5+": 9,
+      "GPT-4o": 8,
+      "Claude-3.5": 8,
+      "PaLM-2": 7,
+      "LLaMA-3": 7,
+      "Falcon-180B": 6,
+      "Gemini-Pro": 6
+    },
+    "task_category_dist": {
+      "Creative Writing": 14,
+      "Text Processing": 12,
+      "Problem Solving": 10,
+      "Data Analysis": 9,
+      "Planning & Scheduling": 8,
+      "Learning & Adaptation": 8,
+      "Decision Making": 5,
+      "Communication": 5,
+      "Code Generation": 5,
+      "Research & Summarization": 4
+    },
+    "deployment_env_dist": {
+      "Edge": 23,
+      "Server": 14,
+      "Desktop": 14,
+      "Hybrid": 13,
+      "Mobile": 13,
+      "Cloud": 3
+    }
+  }
+}

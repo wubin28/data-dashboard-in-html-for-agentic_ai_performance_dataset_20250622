@@ -49,4 +49,7 @@ build/
 # Ignore HTML dashboard outputs in temp locations (but not in versioned folders)
 # (Do not ignore HTML files in dashboard result folders)
 
+# for excel temp files
+~$*.xlsx
+
 # End of .gitignore 

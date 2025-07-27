@@ -1,0 +1,5 @@
+我有两个文件：一个Excel文件 @[datasets/first-80-rows-agentic_ai_performance_dataset_20250622.csv]   ，以及一份基于该Excel文件生成的HTML格式数据分析报告 @[for-80-rows-and-3-questions/trae-2-0-2-with-claude-sonnet-4/data-dashboard-by-trae-2-0-2-with-claude-sonnet-4.html]   。请帮我全面验证这份HTML报告中的所有给出的分析结果是否与Excel原始数据相符。请按HTML报告中分析结果的顺序逐一核实。如有不一致，请告诉我基于Excel数据应得出的正确分析结果。另外，这份数据分析报告是基于下面的提示词生成的，请你参考这份提示词，以便核实。不过请注意，下面的提示词只供你验证HTML报告中的那3个核心问题。报告中所有其他的数据需要你单独从Excel文件中解读并验证。
+
+下面是生成数据分析报告的提示词：我有一个Kaggle数据集"Agentic AI Performance Dataset 2025” #first-80-rows-agentic_ai_performance_dataset_20250622.xlsx ，主要关注AI智能体表现的3个问题：（1）支持多模态处理（multimodal_capability）的智能体类型（agent_type）在该智能体类型中的占比从大到小排名前三的智能体类型是那三个？；（2）支持多模态处理（multimodal_capability）的大模型架构（model_architecture）在该大模型架构中的占比从大到小排名前三的大模型架构是哪三个？；（3）各种智能体处理任务（task_category）各自的智能体表现的公正性（bias detection）的中位数从高到低排名前三的是哪三种智能体处理任务？我希望将这个数据集可视化，请帮我读取提供的Excel文件，在#trae-2-0-2-with-claude-sonnet-4目录下生成一个HTML格式的综合数据看板。看板应包含数据可视化设计，并显示你实际处理的数据集总记录数（本数据集共80条数据，请只显示你实际读取并处理的数据行数）。请使用浅色调设计看板，提供可直接运行的HTML静态代码。无需提供动态效果或使用静态图片，也不要依赖加载Excel文件来运行HTML代码，确保所有图表在手机浏览器中能完整显示。
+
+如果在验证过程中需要保存一些中间文件或结果报告，可以在 @[for-80-rows-and-3-questions] 目录下创建。
